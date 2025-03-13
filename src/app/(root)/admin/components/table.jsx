@@ -6,6 +6,7 @@ import { getProductsAction } from '@/actions/product';
 const Table = () => {
 
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [expandedUrls, setExpandedUrls] = useState({});
 
     useEffect(() => {
