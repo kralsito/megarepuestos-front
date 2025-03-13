@@ -1,0 +1,26 @@
+name: Next.js Build Check
+
+on:
+  pull_request:
+    branches:
+      - dev  # O la rama a la que se hace el merge
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18  # Usa la versión de Node adecuada
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar build de Next.js
+        run: npm run build
+
