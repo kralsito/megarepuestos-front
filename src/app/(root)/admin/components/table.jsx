@@ -1,64 +1,53 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { getProductsAction } from '@/actions/product';
+import { useEffect, useState } from "react";
+import { getProductsAction } from "@/actions/product";
 
 const Table = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [expandedUrls, setExpandedUrls] = useState({});
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProductsAction();
+        setProducts(data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-          try {
-            const data = await getProductsAction();
-            setProducts(data);
-            setLoading(false);
-          } catch (err) {
-            console.log(err);
-          }
-        };
-        fetchProducts();
-      }, []);
-    
-      const toggleUrl = (id) => {
-        setExpandedUrls((prev) => ({
-          ...prev,
-          [id]: !prev[id],
-        }));
-      };
-
-    return (
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="text-left">
-              <th className="px-4 py-2">Id</th>
-              <th className="px-4 py-2">Nombre</th>
-              <th className="px-4 py-2">Descripción</th>
-              <th className="px-4 py-2">Imagen URL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((prod) => (
-              <tr key={prod.id} className="bg-white shadow-md hover:bg-gray-300 border my-2">
-                <td className="px-4 py-2">{prod.id}</td>
-                <td className="px-4 py-2">{prod.name}</td>
-                <td className="px-4 py-2">{prod.description}</td>
-                <td className="px-4 py-2">
-                  {expandedUrls[prod.id] ? prod.s3Url : `${prod.s3Url.slice(0, 20)}...`}
-                  <button
-                    onClick={() => toggleUrl(prod.id)}
-                    className="text-blue-500 ml-2"
-                  >
-                    {expandedUrls[prod.id] ? 'Ver menos' : 'Ver más'}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-    )
+  return (
+    <table className="w-full table-auto border-collapse border border-gray-300">
+      <thead>
+        <tr className="text-left bg-gray-200">
+          <th className="px-4 py-2 border">Id</th>
+          <th className="px-4 py-2 border">Nombre</th>
+          <th className="px-4 py-2 border">Descripción</th>
+          <th className="px-4 py-2 border">Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map((prod) => (
+          <tr key={prod.id} className="bg-white hover:bg-gray-100 border border-gray-300">
+            <td className="px-4 py-2 border">{prod.id}</td>
+            <td className="px-4 py-2 border">{prod.name}</td>
+            <td className="px-4 py-2 border">{prod.description}</td>
+            <td className="px-4 py-2 border">
+              <img 
+                src={prod.s3Url} 
+                alt={prod.name} 
+                className="w-32 h-32 object-cover rounded-md"
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 };
 
 export default Table;
