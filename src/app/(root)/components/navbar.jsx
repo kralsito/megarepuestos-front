@@ -8,7 +8,7 @@ const Navbar = () => {
           <hr className="w-full border-t mb-8 mt-4" />
           <div className="flex space-x-32">
             <a href="/" className="hover:underline">INICIO</a>
-            <a href="/product" className="hover:underline">PRODUCTOS</a>
+            <a href="/productos" className="hover:underline">PRODUCTOS</a>
             <a href="/contact" className="hover:underline">CONTACTO</a>
           </div>
         </div>
