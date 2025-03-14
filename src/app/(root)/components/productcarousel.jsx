@@ -25,7 +25,7 @@ const ProductCarousel = () => {
 
     return (
         <div className="w-full max-w-4xl mx-auto mt-8">
-            <h2 className="text-2xl font-semibold text-center mb-4">Nuestros Productos</h2>
+            <h2 className="text-2xl font-semibold text-center mb-4">PRODUCTOS NUEVOS</h2>
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation
