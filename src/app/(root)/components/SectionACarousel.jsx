@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
     "/images/xiaomi.jpg",
     "/images/megacel.jpg",
-    "/images/megarepuestos.jpg",
+    "/images/megarepuestos.png",
 ];
 
 const SectionACarousel = () => {
@@ -41,15 +42,16 @@ const SectionACarousel = () => {
 
             <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-lg md:text-xl"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 transition-none"
             >
-                ◀
+                <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
             </button>
+
             <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-lg md:text-xl"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 transition-none"
             >
-                ▶
+                <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
             </button>
         </div>
     );
