@@ -29,7 +29,7 @@ const SectionACarousel = () => {
     };
 
     return (
-        <div className="relative w-full h-60 md:h-80 lg:h-full overflow-hidden flex justify-center items-center bg-gray-100">
+        <div className="relative w-full h-60 md:h-80 lg:h-[40rem] overflow-hidden flex justify-center items-center bg-gray-100">
             <div
                 className="flex w-full h-full transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
