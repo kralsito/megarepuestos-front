@@ -9,7 +9,7 @@ const ProductCarousel = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [cardsToShow, setCardsToShow] = useState(3);
+    const [cardsToShow, setCardsToShow] = useState(4);
     const [isMobile, setIsMobile] = useState(false);
     const carouselRef = useRef(null);
 
@@ -20,8 +20,10 @@ const ProductCarousel = () => {
             setCardsToShow(2);
         } else if (width < 768) {
             setCardsToShow(2);
-        } else {
+        } else if (width < 1024) {
             setCardsToShow(3);
+        } else {
+            setCardsToShow(4);
         }
     };
 
@@ -83,7 +85,7 @@ const ProductCarousel = () => {
                 </div>
             )}
 
-            <div className="w-full max-w-6xl bg-white mx-auto py-4 md:py-8">
+            <div className="w-full max-w-7xl bg-white mx-auto py-4 md:py-8">
                 <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 md:mb-6">PRODUCTOS NUEVOS</h2>
                 <div className="relative w-full bg-white overflow-hidden px-2 md:px-4" ref={carouselRef}>
                     {isLoading ? (
@@ -101,10 +103,10 @@ const ProductCarousel = () => {
                             {products.map((product, index) => (
                                 <div 
                                 key={index} 
-                                className="px-1 sm:px-2" 
+                                className="px-1 sm:px-2 md:px-3" 
                                 style={{ width: `${100 / products.length}%` }}
                             >
-                                <div className="bg-gray shadow-lg rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2 flex flex-col items-center h-64 sm:h-80 md:h-96 w-44 sm:w-60 md:w-72 lg:w-80">
+                                <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2 flex flex-col items-center h-64 sm:h-80 md:h-96 w-44 sm:w-60 md:w-64 lg:w-72 hover:shadow-lg transition-shadow duration-300">
                                     <img 
                                         src={product.s3Url} 
                                         alt={product.name} 
