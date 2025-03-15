@@ -5,9 +5,9 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-    "/images/xiaomi.jpg",
-    "/images/megacel.jpg",
-    "/images/megarepuestos.png",
+    "/images/fondo1.jpg",
+    "/images/fondo2.png",
+    "/images/fondo3.png",
 ];
 
 const SectionACarousel = () => {
@@ -29,20 +29,23 @@ const SectionACarousel = () => {
     };
 
     return (
-        <div className="relative w-full h-60 md:h-80 lg:h-[40rem] overflow-hidden flex justify-center items-center bg-gray-100">
+        <div className="relative w-full h-60 md:h-80 lg:h-[40rem] overflow-hidden flex justify-center items-center bg-gray-100" 
+             style={{ 
+                 marginTop: 'var(--navbar-height, 0px)' 
+             }}>
             <div
                 className="flex w-full h-full transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
                 {images.map((src, index) => (
                     <div key={index} className="min-w-full flex justify-center items-center">
-                        <Image
-                            src={src}
-                            alt={`Slide ${index + 1}`}
-                            width={800}
-                            height={400}
-                            className="max-w-[90%] md:max-w-[80%] lg:max-w-[70%] object-contain"
-                        />
+                    <Image
+                        src={src}
+                        alt={`Slide ${index + 1}`}
+                        width={1920} // Ajusta el ancho
+                        height={640}  // Ajusta la altura
+                        className="w-full h-full object-cover" // Cambia max-w por w-full y usa object-cover
+                    />
                     </div>
                 ))}
             </div>
@@ -65,4 +68,3 @@ const SectionACarousel = () => {
 };
 
 export default SectionACarousel;
-
