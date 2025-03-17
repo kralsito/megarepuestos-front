@@ -1,26 +1,34 @@
-name: Next.js Build Check
+name: Next.js CI
 
 on:
+  push:
+    branches:
+      - dev
   pull_request:
     branches:
-      - dev  # O la rama a la que se hace el merge
+      - dev
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-lint:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x] 
 
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
+      - name: Pull repo
+        uses: actions/checkout@v3
 
-      - name: Instalar Node.js
-        uses: actions/setup-node@v4
+      - name: Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18  # Usa la versión de Node adecuada
+          node-version: ${{ matrix.node-version }}
 
-      - name: Instalar dependencias
+      - name: Dependencias
         run: npm install
 
-      - name: Ejecutar build de Next.js
-        run: npm run build
+      - name: Lint
+        run: npm run lint
 
+      - name: Build
+        run: npm run build
