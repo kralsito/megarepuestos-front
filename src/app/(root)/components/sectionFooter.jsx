@@ -26,10 +26,10 @@ const SectionFooter = () => {
                     <h2 className="text-2xl font-semibold mb-4">Sigamos conectados</h2>
                     <div className="flex space-x-6">
                         <a href="https://www.instagram.com/megacelularesberazategui/" target="_blank" rel="noopener noreferrer">
-                            <Instagram className="w-8 h-8 text-black hover:text-gray-400 transition" />
+                            <Instagram className="w-8 h-8 text-black hover:text-yellow-300 transition" />
                         </a>
                         <a href="https://www.facebook.com/megacelularesberazategui" target="_blank" rel="noopener noreferrer">
-                            <Facebook className="w-8 h-8 text-black hover:text-gray-400 transition" />
+                            <Facebook className="w-8 h-8 text-black hover:text-yellow-400 transition" />
                         </a>
                     </div>
                 </div>

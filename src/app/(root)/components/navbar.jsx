@@ -52,7 +52,6 @@ const Navbar = () => {
         {/* Menú de escritorio (centrado debajo del logo) */}
         <div className="hidden md:flex justify-center mt-4 space-x-32">
           <a href="/" className="hover:underline">INICIO</a>
-          <a href="/productos" className="hover:underline">PRODUCTOS</a>
           <a href="/contact" className="hover:underline">CONTACTO</a>
         </div>
       </div>
@@ -71,7 +70,6 @@ const Navbar = () => {
         </button>
         <div className="flex flex-col space-y-6 items-start mt-8">
           <a href="/" className="hover:underline" onClick={() => setIsOpen(false)}>INICIO</a>
-          <a href="/productos" className="hover:underline" onClick={() => setIsOpen(false)}>PRODUCTOS</a>
           <a href="/contact" className="hover:underline" onClick={() => setIsOpen(false)}>CONTACTO</a>
         </div>
       </div>

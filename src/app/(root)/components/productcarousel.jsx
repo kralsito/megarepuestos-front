@@ -86,7 +86,11 @@ const ProductCarousel = () => {
             )}
 
             <div className="w-full max-w-7xl bg-white mx-auto py-4 md:py-8">
-                <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 md:mb-6">PRODUCTOS NUEVOS</h2>
+                <h1 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 tracking-wider">
+                    <span className="relative inline-block">
+                        PRODUCTOS NUEVOS
+                    </span>
+                </h1>
                 <div className="relative w-full bg-white overflow-hidden px-2 md:px-4" ref={carouselRef}>
                     {isLoading ? (
                         <div className="flex justify-center py-16">
@@ -112,8 +116,9 @@ const ProductCarousel = () => {
                                         alt={product.name} 
                                         className="w-full h-40 sm:h-48 md:h-56 object-contain"
                                     />
-                                    <div className="p-1 sm:p-2 text-center flex flex-col flex-grow">
-                                        <h3 className="text-sm md:text-md font-semibold truncate">{product.name}</h3>
+                                    <div className="w-full h-1 bg-yellow-400 mt-2"></div>
+                                    <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
+                                        <h3 className="text-sm md:text-md font-medium tracking-wide text-gray-800 truncate">{product.name}</h3>
                                     </div>
                                 </div>
                             </div>
