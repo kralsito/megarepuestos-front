@@ -51,8 +51,8 @@ const Navbar = () => {
 
         {/* Menú de escritorio (centrado debajo del logo) */}
         <div className="hidden md:flex justify-center mt-4 space-x-32">
-          <a href="/" className="hover:underline">INICIO</a>
-          <a href="/contact" className="hover:underline">CONTACTO</a>
+          <a href="/" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
+          <a href="/contact" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>CONTACTO</a>
         </div>
       </div>
 
@@ -69,8 +69,8 @@ const Navbar = () => {
           <X className="w-6 h-6" />
         </button>
         <div className="flex flex-col space-y-6 items-start mt-8">
-          <a href="/" className="hover:underline" onClick={() => setIsOpen(false)}>INICIO</a>
-          <a href="/contact" className="hover:underline" onClick={() => setIsOpen(false)}>CONTACTO</a>
+          <a href="/" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
+          <a href="/contact" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>CONTACTO</a>
         </div>
       </div>
       
