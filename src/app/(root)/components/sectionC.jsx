@@ -3,7 +3,7 @@ const SectionC = () => {
       { src: "/images/Motorola.png", alt: "Motorola" },
       { src: "/images/Samsung.png", alt: "Samsung" },
       { src: "/images/Xiaomi.png", alt: "Xiaomi" },
-      { src: "/images/iPhone.png", alt: "iPhone" },
+      { src: "/images/IPhone.png", alt: "iPhone" },
       { src: "/images/tcl.png", alt: "Tcl" },
       { src: "/images/alcatel.png", alt: "Alcatel" },
       { src: "/images/lg.png", alt: "LG" },
