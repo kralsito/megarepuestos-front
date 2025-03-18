@@ -78,3 +78,15 @@ body {
     padding: 0 30px;
   }
 }
+
+@font-face {
+  font-family: 'oktah';
+  src: url('/fonts/Oktah.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-oktah {
+  font-family: 'oktah', sans-serif;
+}

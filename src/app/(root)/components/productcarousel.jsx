@@ -12,6 +12,12 @@ const ProductCarousel = () => {
     const [cardsToShow, setCardsToShow] = useState(4);
     const [isMobile, setIsMobile] = useState(false);
     const carouselRef = useRef(null);
+    
+
+    const touchStartX = useRef(null);
+    const touchEndX = useRef(null);
+    const minSwipeDistance = 50;
+    const [isDragging, setIsDragging] = useState(false);
 
     const updateCardsToShow = () => {
         const width = window.innerWidth;
@@ -66,6 +72,65 @@ const ProductCarousel = () => {
         });
     };
 
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+        touchEndX.current = e.touches[0].clientX;
+        setIsDragging(true);
+    };
+
+    const handleTouchMove = (e) => {
+        if (!isDragging) return;
+        touchEndX.current = e.touches[0].clientX;
+        
+        if (Math.abs(touchStartX.current - touchEndX.current) > 10) {
+            e.preventDefault();
+        }
+    };
+
+    const handleTouchEnd = (e) => {
+        if (!isDragging) return;
+        
+        setIsDragging(false);
+        
+
+        if (touchStartX.current !== null && touchEndX.current !== null) {
+            const distance = touchStartX.current - touchEndX.current;
+            
+            if (Math.abs(distance) > minSwipeDistance) {
+                if (distance > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+        
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
+
+    const handleMouseDown = (e) => {
+        touchStartX.current = e.clientX;
+        touchEndX.current = e.clientX;
+        setIsDragging(true);
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging) return;
+        touchEndX.current = e.clientX;
+    };
+
+    const handleMouseUp = () => {
+        handleTouchEnd();
+    };
+
+    const handleMouseLeave = () => {
+        if (isDragging) {
+            handleTouchEnd();
+        }
+    };
+
     return (
         <div className="relative w-full max-w-full">
             {!isMobile && (
@@ -86,12 +151,23 @@ const ProductCarousel = () => {
             )}
 
             <div className="w-full max-w-screen-2xl bg-white mx-auto py-8 md:py-12 px-4 md:px-8">
-                <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 tracking-wider">
+                <h1 className="text-2xl md:text-3xl text-center mb-6 md:mb-8 tracking-wider text-black"
+                style={{ fontFamily: "'oktah', sans-serif" }}>
                     <span className="relative inline-block">
                         PRODUCTOS NUEVOS
                     </span>
                 </h1>
-                <div className="relative w-full bg-white overflow-hidden" ref={carouselRef}>
+                <div 
+                    className="relative w-full bg-white overflow-hidden touch-pan-x" 
+                    ref={carouselRef}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
+                >
                     {isLoading ? (
                         <div className="flex justify-center py-16">
                             <CustomLoading />
@@ -118,6 +194,7 @@ const ProductCarousel = () => {
                                         src={product.s3Url} 
                                         alt={product.name} 
                                         className="w-full h-36 sm:h-44 md:h-52 lg:h-64 object-contain"
+                                        draggable="false"
                                     />
                                     <div className="w-full h-1 bg-yellow-400 mt-2"></div>
                                     <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
@@ -138,11 +215,11 @@ const ProductCarousel = () => {
             </div>
 
             {isMobile && (
-                <div className="absolute inset-0 flex justify-between items-center px-4">
-                    <button onClick={prevSlide} className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 z-10">
+                <div className="absolute inset-0 flex justify-between items-center px-4 pointer-events-none">
+                    <button onClick={prevSlide} className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 z-10 pointer-events-auto">
                         <ChevronLeft className="w-8 h-8" strokeWidth={2} />
                     </button>
-                    <button onClick={nextSlide} className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 z-10">
+                    <button onClick={nextSlide} className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 z-10 pointer-events-auto">
                         <ChevronRight className="w-8 h-8" strokeWidth={2} />
                     </button>
                 </div>
