@@ -22,7 +22,7 @@ const SectionE = () => {
             </p>
           </div>
           <div className="mt-8 md:mt-0 md:w-1/3 flex justify-end">
-            <div className="p-1 rounded-lg">
+            <div className="p-1 rounded-lg hidden sm:block">
               <img 
                 src="/images/megarepuestos.png" 
                 alt="Megarepuestos" 
