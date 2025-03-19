@@ -4,6 +4,7 @@ import SectionFooter from "./components/sectionFooter";
 import SectionB from "./components/SectionB";
 import SectionC from "./components/sectionC";
 import SectionE from "./components/sectionE";
+import SectionF from "./components/sectionF";
 
 export default function Home() {
     return (
@@ -11,6 +12,7 @@ export default function Home() {
             <SectionACarousel />
             <SectionC />
             <ProductCarousel />
+            <SectionF />
             <SectionE />
             <SectionFooter />
             

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getProductsAction, deleteProductAction } from "@/actions/product";
 import { Trash2 } from "lucide-react"; 
 import Swal from "sweetalert2";
+import CustomLoading from "@/app/components/customLoading";
 
 const Table = () => {
   const [products, setProducts] = useState([]);
@@ -68,7 +69,9 @@ const Table = () => {
   return (
     <div className="relative">
       {loading ? (
-        <div className="text-center py-10">Cargando productos...</div>
+        <div className="flex justify-center py-16">
+          <CustomLoading />
+        </div>
       ) : (
         <table className="w-full table-auto border-collapse border border-gray-300">
           <thead>

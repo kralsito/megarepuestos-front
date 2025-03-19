@@ -1,96 +1,78 @@
-import { useState } from "react";
-import { createProductAction } from "@/actions/product";
-import Swal from "sweetalert2";
+'use client';
+
+import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+import { createProductAction } from '@/actions/product';
 
 const AddProductModal = ({ isOpen, onClose }) => {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [image, setImage] = useState(null);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", description);
-        formData.append("image", image);
-
-        try {
-            await createProductAction(formData);
+    useEffect(() => {
+        if (isOpen) {
             Swal.fire({
-                icon: "success",
-                title: "Producto agregado",
-                text: "El producto se agregó con éxito",
-                toast: true,
-                position: "top-end",
-                timer: 3000,
-                showConfirmButton: false
-            });
-            onClose();
-            setTimeout(() => {
-                window.location.href = "/admin"; // Refrescar la página
-            }, 1000);
-        } catch (error) {
-            console.error("Error al agregar el producto:", error);
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "No se pudo agregar el producto",
-                toast: true,
-                position: "top-end",
-                timer: 3000,
-                showConfirmButton: false
+                title: 'Agregar Producto',
+                html:
+                    '<div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">' +
+                    '<input id="image" type="file" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">' +
+                    '<input id="name" class="swal2-input" placeholder="Nombre" style="width: 100%;">' +
+                    '<textarea id="description" class="swal2-textarea" placeholder="Descripción" style="width: 100%; height: 100px;"></textarea>' +
+                    '</div>',
+                showCancelButton: true,
+                confirmButtonText: 'Guardar',
+                customClass: {
+                    popup: 'swal-wide'
+                },
+                preConfirm: () => {
+                    const imageInput = document.getElementById('image');
+                    const name = document.getElementById('name').value;
+                    const description = document.getElementById('description').value;
+                    const image = imageInput.files[0];
+
+                    if (!name || !description || !image) {
+                        Swal.showValidationMessage('Todos los campos son obligatorios');
+                    }
+
+                    return { name, description, image };
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const { name, description, image } = result.value;
+                    const formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('description', description);
+                    formData.append('image', image);
+
+                    try {
+                        await createProductAction(formData);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Producto agregado',
+                            text: 'El producto se agregó con éxito',
+                            toast: true,
+                            position: 'top-end',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                        onClose();
+                        setTimeout(() => {
+                            window.location.href = '/admin';
+                        }, 1000);
+                    } catch (error) {
+                        console.error('Error al agregar el producto:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo agregar el producto',
+                            toast: true,
+                            position: 'top-end',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    }
+                }
             });
         }
-    };
+    }, [isOpen]);
 
-    if (!isOpen) return null;
-
-    return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h2 className="text-xl font-semibold mb-4">Agregar Producto</h2>
-                <form onSubmit={handleSubmit}>
-                    <label className="block mb-2">
-                        Imagen:
-                        <input 
-                            type="file" 
-                            className="block w-full border p-2 rounded mt-1"
-                            onChange={(e) => setImage(e.target.files[0])}
-                            required
-                        />
-                    </label>
-
-                    <label className="block mb-2">
-                        Nombre:
-                        <input 
-                            type="text" 
-                            className="block w-full border p-2 rounded mt-1"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </label>
-
-                    <label className="block mb-4">
-                        Descripción:
-                        <textarea 
-                            className="block w-full border p-2 rounded mt-1"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                        />
-                    </label>
-
-                    <div className="flex justify-end space-x-2">
-                        <button type="button" onClick={onClose} className="bg-gray-400 px-4 py-2 rounded">Cancelar</button>
-                        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+    return null;
 };
 
 export default AddProductModal;
-
