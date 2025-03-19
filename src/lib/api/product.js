@@ -8,3 +8,7 @@ export async function getProducts() {
 export async function createProduct(formData) { 
   return await apiRequest(`/product`, 'POST', formData, 'multipart/form-data', true)
 }
+
+export async function deleteProduct(id){
+  return await apiRequest(`/product/${id}`, 'DELETE', null, 'application/json', true)
+}

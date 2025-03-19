@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createProductAction } from "@/actions/product";
+import Swal from "sweetalert2";
 
 const AddProductModal = ({ isOpen, onClose }) => {
     const [name, setName] = useState("");
@@ -8,19 +9,38 @@ const AddProductModal = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
-        formData.append("image", image); 
+        formData.append("image", image);
 
         try {
             await createProductAction(formData);
-            alert("Producto agregado con éxito");
-            onClose(); 
+            Swal.fire({
+                icon: "success",
+                title: "Producto agregado",
+                text: "El producto se agregó con éxito",
+                toast: true,
+                position: "top-end",
+                timer: 3000,
+                showConfirmButton: false
+            });
+            onClose();
+            setTimeout(() => {
+                window.location.href = "/admin"; // Refrescar la página
+            }, 1000);
         } catch (error) {
             console.error("Error al agregar el producto:", error);
-            alert("Error al agregar el producto");
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "No se pudo agregar el producto",
+                toast: true,
+                position: "top-end",
+                timer: 3000,
+                showConfirmButton: false
+            });
         }
     };
 
@@ -73,3 +93,4 @@ const AddProductModal = ({ isOpen, onClose }) => {
 };
 
 export default AddProductModal;
+
