@@ -198,7 +198,7 @@ const ProductCarousel = () => {
                                     />
                                     <div className="w-full h-1 bg-yellow-400 mt-2"></div>
                                     <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
-                                        <h3 className="text-sm md:text-lg font-medium tracking-wide text-black-800 truncate">{product.name}</h3>
+                                        <h3 className="text-sm md:text-lg font-medium tracking-wide text-black-800 truncate text-black">{product.name}</h3>
                                     </div>
                                 </div>
                             </div>

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
+import { getCookie, setCookie } from 'cookies-next';
+import Swal from 'sweetalert2';
 import { createFormAction, checkPhoneNumberExistsAction } from '@/actions/form';
 
 export default function SectionF() {
@@ -10,6 +10,11 @@ export default function SectionF() {
   const redirectUrl = "https://teletype.in/@megacelulares/U7zK_dlWbx6";
 
   const openModal = async () => {
+    if (getCookie('formularioCompletado')) {
+      window.location.href = redirectUrl;
+      return;
+    }
+
     Swal.fire({
       title: 'Completa el formulario para ver la lista de precios',
       html:
@@ -20,24 +25,18 @@ export default function SectionF() {
       confirmButtonText: 'Enviar',
       preConfirm: async () => {
         try {
-          const firstName = document.getElementById('firstName').value;
-          const lastName = document.getElementById('lastName').value; 
-          const phoneNumber = document.getElementById('phoneNumber').value;
+          const firstName = document.getElementById('firstName').value.trim();
+          const lastName = document.getElementById('lastName').value.trim();
+          const phoneNumber = document.getElementById('phoneNumber').value.trim();
 
-          if ( !firstName || !lastName || !phoneNumber) {
+          if (!firstName || !lastName || !phoneNumber) {
             Swal.showValidationMessage('Todos los campos son obligatorios');
             return false;
           }
           
           const phoneNumberExists = await checkPhoneNumberExistsAction(phoneNumber);
           
-
-          return {  
-            firstName, 
-            lastName, 
-            phoneNumber,
-            phoneNumberExists 
-          };
+          return { firstName, lastName, phoneNumber, phoneNumberExists };
         } catch (error) {
           console.error('Error en la validación:', error);
           Swal.showValidationMessage('Error en la validación');
@@ -53,14 +52,15 @@ export default function SectionF() {
               icon: 'success',
               confirmButtonText: 'Ver lista de precios'
             });
-            
+
+            setCookie('formularioCompletado', 'true', { maxAge: 30 * 24 * 60 * 60, path: '/' });
+
             window.location.href = redirectUrl;
             return;
           }
           
           const { phoneNumberExists, ...formData } = result.value;
-          
-          const response = await createFormAction(formData);
+          await createFormAction(formData);
           
           await Swal.fire({
             title: '¡Registro exitoso!',
@@ -68,7 +68,9 @@ export default function SectionF() {
             text: 'Tus datos han sido registrados correctamente',
             confirmButtonText: 'Continuar'
           });
-          
+
+          setCookie('formularioCompletado', 'true', { maxAge: 30 * 24 * 60 * 60, path: '/' });
+
           window.location.href = redirectUrl;
         } catch (error) {
           console.error('Error al crear el formulario:', error);
