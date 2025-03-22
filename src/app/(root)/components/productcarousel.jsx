@@ -13,7 +13,6 @@ const ProductCarousel = () => {
     const [isMobile, setIsMobile] = useState(false);
     const carouselRef = useRef(null);
     
-
     const touchStartX = useRef(null);
     const touchEndX = useRef(null);
     const minSwipeDistance = 50;
@@ -22,6 +21,7 @@ const ProductCarousel = () => {
     const updateCardsToShow = () => {
         const width = window.innerWidth;
         setIsMobile(width < 640);
+        
         if (width < 640) {
             setCardsToShow(2);
         } else if (width < 768) {
@@ -72,7 +72,6 @@ const ProductCarousel = () => {
         });
     };
 
-
     const handleTouchStart = (e) => {
         touchStartX.current = e.touches[0].clientX;
         touchEndX.current = e.touches[0].clientX;
@@ -93,7 +92,6 @@ const ProductCarousel = () => {
         
         setIsDragging(false);
         
-
         if (touchStartX.current !== null && touchEndX.current !== null) {
             const distance = touchStartX.current - touchEndX.current;
             
@@ -132,25 +130,25 @@ const ProductCarousel = () => {
     };
 
     return (
-        <div className="relative w-full max-w-full">
-            {!isMobile && (
-                <div className="absolute w-full px-6 flex justify-between items-center" style={{ top: '50%', transform: 'translateY(-50%)' }}>
-                    <button
-                        onClick={prevSlide}
-                        className="absolute left-8 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 hover:bg-gray-100 z-10"
-                    >
-                        <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
-                    </button>
-                    <button
-                        onClick={nextSlide}
-                        className="absolute right-8 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 hover:bg-gray-100 z-10"
-                    >
-                        <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
-                    </button>
-                </div>
-            )}
+        <div className="relative w-full max-w-full px-12 sm:px-14 md:px-16">
+            
+            <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
+                aria-label="Producto anterior"
+            >
+                <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+            </button>
+            
+            <button
+                onClick={nextSlide}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
+                aria-label="Siguiente producto"
+            >
+                <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+            </button>
 
-            <div className="w-full max-w-screen-2xl bg-white mx-auto py-8 md:py-12 px-4 md:px-8">
+            <div className="w-full max-w-screen-2xl bg-white mx-auto py-8 md:py-12">
                 <h1 className="text-2xl md:text-3xl text-center mb-6 md:mb-8 tracking-wider text-black"
                 style={{ fontFamily: "'oktah', sans-serif" }}>
                     <span className="relative inline-block">
@@ -187,15 +185,17 @@ const ProductCarousel = () => {
                                 style={{ width: `${100 / products.length}%` }}
                             >
                                 <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2 flex flex-col items-center
-                                    w-40 sm:w-56 md:w-64 lg:w-72
-                                    h-60 sm:h-72 md:h-80 lg:h-96
+                                    w-full max-w-full
+                                    h-64 sm:h-72 md:h-80 lg:h-96
                                     hover:shadow-lg transition-shadow duration-300">
-                                    <img 
-                                        src={product.s3Url} 
-                                        alt={product.name} 
-                                        className="w-full h-36 sm:h-44 md:h-52 lg:h-64 object-contain"
-                                        draggable="false"
-                                    />
+                                    <div className="w-full h-44 sm:h-52 md:h-60 lg:h-72 relative">
+                                        <img 
+                                            src={product.s3Url} 
+                                            alt={product.name} 
+                                            className="w-full h-full object-contain"
+                                            draggable="false"
+                                        />
+                                    </div>
                                     <div className="w-full h-1 bg-yellow-400 mt-2"></div>
                                     <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
                                         <h3 className="text-sm md:text-lg font-medium tracking-wide text-black-800 truncate text-black">{product.name}</h3>
@@ -213,17 +213,6 @@ const ProductCarousel = () => {
                     )}
                 </div>
             </div>
-
-            {isMobile && (
-                <div className="absolute inset-0 flex justify-between items-center px-4 pointer-events-none">
-                    <button onClick={prevSlide} className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 z-10 pointer-events-auto">
-                        <ChevronLeft className="w-8 h-8" strokeWidth={2} />
-                    </button>
-                    <button onClick={nextSlide} className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 rounded-full text-gray-400 border border-gray-400 z-10 pointer-events-auto">
-                        <ChevronRight className="w-8 h-8" strokeWidth={2} />
-                    </button>
-                </div>
-            )}
         </div>
     );
 };
