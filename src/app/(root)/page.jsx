@@ -13,6 +13,7 @@ export default function Home() {
             <SectionC />
             <ProductCarousel />
             <SectionF />
+            <SectionC />
             <SectionE />
             <SectionFooter />
             
