@@ -13,7 +13,7 @@ const SectionC = () => {
     ];
   
     return (
-      <div className="w-full bg-gray-200 my-4 py-4 overflow-hidden">
+      <div className="w-full bg-gray-200 py-4 overflow-hidden">
         <div className="marquee-container">
           <div className="marquee-track">
             {logos.map((logo, index) => (

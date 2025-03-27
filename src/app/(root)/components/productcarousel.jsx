@@ -149,7 +149,7 @@ const ProductCarousel = () => {
             </button>
 
             <div className="w-full max-w-screen-2xl bg-white mx-auto py-8 md:py-12">
-                <h1 className="text-2xl md:text-3xl text-center mb-6 md:mb-8 tracking-wider text-black"
+                <h1 className="text-2xl md:text-3xl text-center mb-6 md:mb-8 tracking-wider text-black md:mt-8"
                 style={{ fontFamily: "'oktah', sans-serif" }}>
                     <span className="relative inline-block">
                         PRODUCTOS NUEVOS

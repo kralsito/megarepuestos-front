@@ -16,13 +16,20 @@ export default function SectionF() {
     }
 
     Swal.fire({
-      title: 'Completa el formulario para ver la lista de precios',
+      title: 'Completa el formulario',
       html:
-        '<input id="firstName" class="swal2-input" placeholder="Nombre" required>' +
-        '<input id="lastName" class="swal2-input" placeholder="Apellido" required>' + 
-        '<input id="phoneNumber" class="swal2-input" placeholder="Celular" required>',
+        '<input id="firstName" class="swal2-input" placeholder="Nombre" required style="width: calc(100% - 40px); margin: 10px 0;">' +
+        '<input id="lastName" class="swal2-input" placeholder="Apellido" required style="width: calc(100% - 40px); margin: 10px 0;">' + 
+        '<input id="phoneNumber" class="swal2-input" placeholder="Celular" required style="width: calc(100% - 40px); margin: 10px 0;">',
+      width: '90%',
+      maxWidth: '500px',
       showCancelButton: true,
       confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        popup: 'custom-swal-popup',
+        input: 'custom-input'
+      },
       preConfirm: async () => {
         try {
           const firstName = document.getElementById('firstName').value.trim();
@@ -86,10 +93,17 @@ export default function SectionF() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center w-full h-auto py-10 px-4 bg-black text-white text-center">
+      <p 
+        className="text-2xl md:text-4xl mt-8 max-w-2xl" 
+        style={{ fontFamily: "'oktah', sans-serif" }}
+      >
+        Completa el formulario para acceder a nuestra lista de precios
+      </p>
       <button 
         onClick={openModal} 
-        className="px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        className="px-6 md:px-10 py-4 md:py-5 text-base md:text-lg text-black bg-primary-yellow rounded-xl hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mt-8 mb-12"
+        style={{ fontFamily: "'oktah', sans-serif" }}
       >
         Ver lista de precios
       </button>
