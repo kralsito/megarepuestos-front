@@ -20,7 +20,11 @@ export default function SectionF() {
       html:
         '<input id="firstName" class="swal2-input" placeholder="Nombre" required style="width: calc(100% - 40px); margin: 10px 0;">' +
         '<input id="lastName" class="swal2-input" placeholder="Apellido" required style="width: calc(100% - 40px); margin: 10px 0;">' + 
-        '<input id="phoneNumber" class="swal2-input" placeholder="Celular" required style="width: calc(100% - 40px); margin: 10px 0;">',
+        '<input id="phoneNumber" class="swal2-input" placeholder="Celular" required type="tel" style="width: calc(100% - 40px); margin: 10px 0;">' +
+        '<div class="flex items-center justify-center mt-4">' +
+        '  <input type="checkbox" id="termsCheckbox" class="mr-2" />' +
+        '  <label for="termsCheckbox" class="text-sm">Acepto los términos y condiciones</label>' +
+        '</div>',
       width: '90%',
       maxWidth: '500px',
       showCancelButton: true,
@@ -35,9 +39,22 @@ export default function SectionF() {
           const firstName = document.getElementById('firstName').value.trim();
           const lastName = document.getElementById('lastName').value.trim();
           const phoneNumber = document.getElementById('phoneNumber').value.trim();
+          const termsCheckbox = document.getElementById('termsCheckbox');
 
-          if (!firstName || !lastName || !phoneNumber) {
-            Swal.showValidationMessage('Todos los campos son obligatorios');
+          if (!firstName || !lastName) {
+            Swal.showValidationMessage('Nombre y apellido son obligatorios');
+            return false;
+          }
+          
+          // Validación de número de teléfono
+          const phoneRegex = /^[0-9]+$/; // Esta expresión valida que una cadena contenga solo números enteros positivos sin espacios ni caracteres adicionales.
+          if (!phoneNumber || !phoneRegex.test(phoneNumber)) {
+            Swal.showValidationMessage('Ingrese un número de celular válido (solo números)');
+            return false;
+          }
+          
+          if (!termsCheckbox.checked) {
+            Swal.showValidationMessage('Debes aceptar los términos y condiciones');
             return false;
           }
           
