@@ -67,36 +67,22 @@ const Table = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-x-auto">
       {loading ? (
         <div className="flex justify-center py-16">
           <CustomLoading />
         </div>
       ) : (
-        <table className="w-full table-auto border-collapse border border-gray-300">
-          <thead>
-            <tr className="text-left bg-gray-200">
-              <th className="px-4 py-2 border">Id</th>
-              <th className="px-4 py-2 border">Nombre</th>
-              <th className="px-4 py-2 border">Descripción</th>
-              <th className="px-4 py-2 border">Imagen</th>
-              <th className="px-4 py-2 border">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="w-full">
+          {/* Mobile View - Card Layout */}
+          <div className="block md:hidden">
             {products.map((prod) => (
-              <tr key={prod.id} className="bg-white hover:bg-gray-100 border border-gray-300">
-                <td className="px-4 py-2 border">{prod.id}</td>
-                <td className="px-4 py-2 border">{prod.name}</td>
-                <td className="px-4 py-2 border">{prod.description}</td>
-                <td className="px-4 py-2 border">
-                  <img 
-                    src={prod.s3Url} 
-                    alt={prod.name} 
-                    className="w-32 h-32 object-cover rounded-md"
-                  />
-                </td>
-                <td className="px-4 py-2 border">
+              <div 
+                key={prod.id} 
+                className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200"
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="text-lg font-semibold">{prod.name}</h3>
                   <button 
                     className="text-red-500 hover:text-red-700 focus:outline-none"
                     onClick={() => handleDelete(prod)}
@@ -104,11 +90,60 @@ const Table = () => {
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
-                </td>
-              </tr>
+                </div>
+                <div className="flex justify-center mb-2">
+                  <img 
+                    src={prod.s3Url} 
+                    alt={prod.name} 
+                    className="w-48 h-48 object-cover rounded-md"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <p><span className="font-medium">ID:</span> {prod.id}</p>
+                  <p><span className="font-medium">Descripción:</span> {prod.description}</p>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+
+          {/* Desktop View - Table Layout */}
+          <table className="w-full table-auto border-collapse border border-gray-300 hidden md:table">
+            <thead>
+              <tr className="text-left bg-gray-200">
+                <th className="px-4 py-2 border">Id</th>
+                <th className="px-4 py-2 border">Nombre</th>
+                <th className="px-4 py-2 border">Descripción</th>
+                <th className="px-4 py-2 border">Imagen</th>
+                <th className="px-4 py-2 border">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((prod) => (
+                <tr key={prod.id} className="bg-white hover:bg-gray-100 border border-gray-300">
+                  <td className="px-4 py-2 border">{prod.id}</td>
+                  <td className="px-4 py-2 border">{prod.name}</td>
+                  <td className="px-4 py-2 border">{prod.description}</td>
+                  <td className="px-4 py-2 border">
+                    <img 
+                      src={prod.s3Url} 
+                      alt={prod.name} 
+                      className="w-32 h-32 object-cover rounded-md"
+                    />
+                  </td>
+                  <td className="px-4 py-2 border">
+                    <button 
+                      className="text-red-500 hover:text-red-700 focus:outline-none"
+                      onClick={() => handleDelete(prod)}
+                      title="Eliminar producto"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
