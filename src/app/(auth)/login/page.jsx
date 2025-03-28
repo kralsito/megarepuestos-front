@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { loginAction } from "@/actions/auth";
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +32,8 @@ export default function LoginPage() {
       <img 
         src="/images/login.png" 
         alt="Admin Icon" 
-        className="max-w-[350px] h-auto"
+        className="max-w-[350px] h-auto cursor-pointer hover:opacity-80 transition-opacity"
+        onClick={() => router.push('/')}
       />
       <h2 className="text-xl font-semibold text-white mb-12"
           style={{ fontFamily: "'oktah', sans-serif" }}>
