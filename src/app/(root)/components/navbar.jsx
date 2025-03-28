@@ -64,12 +64,14 @@ const Navbar = () => {
             />
           </a>
           
-          <button
-            className="md:hidden text-white focus:outline-none absolute right-0 top-1/2 transform -translate-y-1/2"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
-          </button>
+          {isLoggedIn && (
+            <button
+              className="md:hidden text-white focus:outline-none absolute right-0 top-1/2 transform -translate-y-1/2"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            </button>
+          )}
 
           {isLoggedIn && (
             <button
@@ -83,40 +85,54 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex justify-center mt-4 space-x-32">
-          <a href="/" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
-          <a href="/contact" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>CONTACTO</a>
+          
+          {isLoggedIn && (
+            <>
+              <a href="/" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
+              <a href="/admin" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
+              <a href="/clients" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
+            </>
+          )}
+          
         </div>
       </div>
 
-      <div
-        className={`md:hidden fixed top-0 right-0 h-full bg-black w-64 pt-16 px-4 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        } shadow-lg z-50`}
-      >
-        <button
-          className="absolute top-4 right-4 text-white focus:outline-none"
-          onClick={() => setIsOpen(false)}
+      {isLoggedIn && (
+        <div
+          className={`md:hidden fixed top-0 right-0 h-full bg-black w-64 pt-16 px-4 transform transition-transform duration-300 ease-in-out ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } shadow-lg z-50`}
         >
-          <X className="w-6 h-6" />
-        </button>
-        <div className="flex flex-col space-y-6 items-start mt-8">
-          <a href="/" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
-          <a href="/contact" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>CONTACTO</a>
-          
-          {isLoggedIn && (
-            <button
-              onClick={handleLogout}
-              className="flex items-center space-x-2 hover:underline"
-              style={{ fontFamily: "'oktah', sans-serif" }}
-            >
-              <LogOut className="w-5 h-5" />
-              <span>CERRAR SESIÓN</span>
-            </button>
-          )}
+          <button
+            className="absolute top-4 right-4 text-white focus:outline-none"
+            onClick={() => setIsOpen(false)}
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div className="flex flex-col space-y-6 items-start mt-8">
+            
+            <>
+              <a href="/" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
+              <a href="/admin" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
+              <a href="/clients" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
+                className="flex items-center space-x-2 hover:underline"
+                style={{ fontFamily: "'oktah', sans-serif" }}
+              >
+                <LogOut className="w-5 h-5" />
+                <span>CERRAR SESIÓN</span>
+              </button>
+            </>
+            
+          </div>
         </div>
-      </div>
+      )}
       
-      {isOpen && (
+      {isOpen && isLoggedIn && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
