@@ -1,6 +1,6 @@
 'use server'
 
-import { getForms, createForm, checkPhoneNumberExists} from "@/lib/api/form"
+import { getForms, createForm, checkPhoneNumberExists, deleteForm } from "@/lib/api/form"
 
 export async function getFormsAction() {
     const {data, headers} = await getForms()
@@ -16,3 +16,8 @@ export async function checkPhoneNumberExistsAction(dni) {
     const { data } = await checkPhoneNumberExists(dni);
     return data; 
  }
+
+export async function deleteFormAction(id){
+    const {data, headers} = await deleteForm(id)
+    return data 
+}
