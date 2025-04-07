@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getFormsAction } from "@/actions/form";
+import { getFormsAction, deleteFormAction } from "@/actions/form";
+import { Trash2 } from "lucide-react"; 
+import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
 
 const TableClients = () => {
@@ -24,6 +26,46 @@ const TableClients = () => {
     }
   };
 
+  const handleDelete = async (client) => {
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: `Eliminarás el cliente "${client.firstName} ${client.lastName}". Esta acción no se puede deshacer.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await deleteFormAction(client.id);
+        
+        setClients(clients.filter(c => c.id !== client.id));
+
+        Swal.fire({
+          icon: "success",
+          title: "Cliente eliminado",
+          text: "El cliente se eliminó correctamente.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2100);
+      } catch (error) {
+        console.error("Error al eliminar el cliente:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo eliminar el cliente.",
+        });
+      }
+    }
+  };
+
   return (
     <div className="relative w-full overflow-x-auto">
       {loading ? (
@@ -32,6 +74,7 @@ const TableClients = () => {
         </div>
       ) : (
         <div className="w-full">
+          {/* Mobile View - Card Layout */}
           <div className="block md:hidden">
             {clients.map((cli) => (
               <div 
@@ -40,6 +83,13 @@ const TableClients = () => {
               >
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-lg font-semibold">{cli.id}</h3>
+                  <button 
+                    className="text-red-500 hover:text-red-700 focus:outline-none"
+                    onClick={() => handleDelete(cli)}
+                    title="Eliminar cliente"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
                 </div>
                 <div className="space-y-1">
                   <p><span className="font-medium">Nombre:</span> {cli.firstName}</p>
@@ -58,6 +108,7 @@ const TableClients = () => {
                 <th className="px-4 py-2 border">Nombre</th>
                 <th className="px-4 py-2 border">Apellido</th>
                 <th className="px-4 py-2 border">Número de telefono</th>
+                <th className="px-4 py-2 border">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -67,6 +118,15 @@ const TableClients = () => {
                   <td className="px-4 py-2 border">{cli.firstName}</td>
                   <td className="px-4 py-2 border">{cli.lastName}</td>
                   <td className="px-4 py-2 border">{cli.phoneNumber}</td>
+                  <td className="px-4 py-2 border">
+                    <button 
+                      className="text-red-500 hover:text-red-700 focus:outline-none"
+                      onClick={() => handleDelete(cli)}
+                      title="Eliminar cliente"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
