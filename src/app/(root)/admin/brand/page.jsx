@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { getAccessTokenAction } from "@/actions/auth";
-import SectionA from './components/sectionA';
-import Table from './components/table';
-import AddProductModal from './components/AddProductModal';
+import TableBrands from "./components/tableBrands";
+import SectionABrands from "./components/SectionABrands";
+import AddBrandModal from "./components/addBrandModal";
 
-const Admin = () => {
+const Brands = () => {
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +27,7 @@ const Admin = () => {
                 router.push('/login');
             }
         };
+
         checkAuthentication();
     }, [router]);
 
@@ -36,15 +37,14 @@ const Admin = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 p-8">
-            <SectionA />
+            <SectionABrands />
             <button 
                 onClick={() => setIsModalOpen(true)} 
                 className="mb-4 bg-green-600 text-white px-4 py-2 rounded">
-                Agregar Producto
+                Agregar Marca
             </button>
-            <Table />
-            
-            <AddProductModal 
+            <TableBrands />
+            <AddBrandModal 
                 isOpen={isModalOpen} 
                 onClose={() => setIsModalOpen(false)} 
             />
@@ -52,4 +52,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default Brands;

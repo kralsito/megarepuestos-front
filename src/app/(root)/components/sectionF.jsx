@@ -7,7 +7,7 @@ import { createFormAction, checkPhoneNumberExistsAction } from '@/actions/form';
 
 export default function SectionF() {
   const router = useRouter();
-  const redirectUrl = "https://teletype.in/@megacelulares/U7zK_dlWbx6";
+  const redirectUrl = "https://www.caddis.com.ar/megacelulares.php";
 
   const openModal = async () => {
     if (getCookie('formularioCompletado')) {
