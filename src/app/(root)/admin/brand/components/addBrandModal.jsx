@@ -6,8 +6,10 @@ import { createBrandAction } from '@/actions/brand';
 
 const AddBrandModal = ({ isOpen, onClose }) => {
     useEffect(() => {
+        let swalInstance;
+        
         if (isOpen) {
-            Swal.fire({
+            swalInstance = Swal.fire({
                 title: 'Agregar Marca',
                 html:
                     '<div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">' +
@@ -18,9 +20,9 @@ const AddBrandModal = ({ isOpen, onClose }) => {
                 customClass: {
                     popup: 'swal-wide'
                 },
+                allowOutsideClick: true,
                 preConfirm: () => {
                     const name = document.getElementById('name').value;
-
 
                     if (!name) {
                         Swal.showValidationMessage('Todos los campos son obligatorios');
@@ -61,10 +63,18 @@ const AddBrandModal = ({ isOpen, onClose }) => {
                             showConfirmButton: false
                         });
                     }
+                } else {
+                    onClose();
                 }
             });
         }
-    }, [isOpen]);
+        
+        return () => {
+            if (swalInstance && swalInstance.close) {
+                swalInstance.close();
+            }
+        };
+    }, [isOpen, onClose]);
 
     return null;
 };

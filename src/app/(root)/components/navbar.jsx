@@ -92,6 +92,7 @@ const Navbar = () => {
               <a href="/admin/product" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
               <a href="/admin/clients" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
               <a href="/admin/brand" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>MARCAS</a>
+              <a href="/admin/typereplacement" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>TIPO-REP</a>
             </>
           )}
           
@@ -117,6 +118,7 @@ const Navbar = () => {
               <a href="/admin/product" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
               <a href="/admin/clients" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
               <a href="/admin/brand" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>MARCAS</a>
+              <a href="/admin/typereplacement" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>TIPO-REP</a>
               <button
                 onClick={() => {
                   handleLogout();

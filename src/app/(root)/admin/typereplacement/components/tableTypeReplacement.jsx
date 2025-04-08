@@ -1,24 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getBrandsAction, deleteBrandAction } from "@/actions/brand";
+import { getTypeReplacementsAction, deleteTypeReplacementAction } from "@/actions/typereplacement";
 import { Trash2 } from "lucide-react"; 
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
 
-const TableBrands = () => {
-  const [brands, setBrands] = useState([]);
+const TableTypeReplacements = () => {
+  const [typereplacements, setTypeReplacement] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBrands();
+    fetchTypeReplacements();
   }, []);
 
-  const fetchBrands = async () => {
+  const fetchTypeReplacements = async () => {
     try {
       setLoading(true);
-      const data = await getBrandsAction();
-      setBrands(data);
+      const data = await getTypeReplacementsAction();
+      setTypeReplacement(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -26,10 +26,10 @@ const TableBrands = () => {
     }
   };
 
-  const handleDelete = async (brand) => {
+  const handleDelete = async (typereplacement) => {
     const result = await Swal.fire({
       title: "¿Estás seguro?",
-      text: `Eliminarás la marca "${brand.name}". Esta acción no se puede deshacer.`,
+      text: `Eliminarás el tipo de repuesto "${typereplacement.name}". Esta acción no se puede deshacer.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
@@ -40,14 +40,14 @@ const TableBrands = () => {
 
     if (result.isConfirmed) {
       try {
-        await deleteBrandAction(brand.id);
+        await deleteTypeReplacementAction(typereplacement.id);
         
-        setBrands(brands.filter(b => b.id !== brand.id));
-
+        setTypeReplacement(typereplacements.filter(t => t.id !== typereplacement.id));
+        
         Swal.fire({
             icon: "success",
-            title: "Marca eliminada",
-            text: "La marca se eliminó correctamente.",
+            title: "Tipo de repuesto eliminado",
+            text: "El tipo de repuesto se eliminó correctamente.",
             timer: 2000,
             showConfirmButton: true,
             confirmButtonText: "Cerrar",
@@ -56,11 +56,11 @@ const TableBrands = () => {
 
 
       } catch (error) {
-        console.error("Error al eliminar la marca:", error);
+        console.error("Error al eliminar el tipo de repuesto:", error);
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "No se pudo eliminar la marca.",
+          text: "No se pudo eliminar el tipo de repuesto.",
         });
       }
     }
@@ -75,23 +75,23 @@ const TableBrands = () => {
       ) : (
         <div className="w-full">
           <div className="block md:hidden">
-            {brands.map((bra) => (
+            {typereplacements.map((typ) => (
               <div 
-                key={bra.id} 
+                key={typ.id} 
                 className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-semibold">{bra.id}</h3>
+                  <h3 className="text-lg font-semibold">{typ.id}</h3>
                   <button 
                     className="text-red-500 hover:text-red-700 focus:outline-none"
-                    onClick={() => handleDelete(bra)}
-                    title="Eliminar marca"
+                    onClick={() => handleDelete(typ)}
+                    title="Eliminar tipo de repuesto"
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
                 <div className="space-y-1">
-                  <p><span className="font-medium">Marca:</span> {bra.name}</p>
+                  <p><span className="font-medium">Tipo de repuesto:</span> {typ.name}</p>
                 </div>
               </div>
             ))}
@@ -102,20 +102,20 @@ const TableBrands = () => {
             <thead>
               <tr className="text-left bg-gray-200">
                 <th className="px-4 py-2 border">Id</th>
-                <th className="px-4 py-2 border">Marca</th>
+                <th className="px-4 py-2 border">Tipo de repuesto</th>
                 <th className="px-4 py-2 border">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {brands.map((bra) => (
-                <tr key={bra.id} className="bg-white hover:bg-gray-100 border border-gray-300">
-                  <td className="px-4 py-2 border">{bra.id}</td>
-                  <td className="px-4 py-2 border">{bra.name}</td>
+              {typereplacements.map((typ) => (
+                <tr key={typ.id} className="bg-white hover:bg-gray-100 border border-gray-300">
+                  <td className="px-4 py-2 border">{typ.id}</td>
+                  <td className="px-4 py-2 border">{typ.name}</td>
                   <td className="px-4 py-2 border">
                     <button 
                       className="text-red-500 hover:text-red-700 focus:outline-none"
-                      onClick={() => handleDelete(bra)}
-                      title="Eliminar marca"
+                      onClick={() => handleDelete(typ)}
+                      title="Eliminar tipo de repuesto"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>
@@ -130,4 +130,4 @@ const TableBrands = () => {
   );
 };
 
-export default TableBrands;
+export default TableTypeReplacements;
