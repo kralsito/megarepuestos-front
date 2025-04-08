@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { getAccessTokenAction } from "@/actions/auth";
-import SectionA from './components/sectionA';
-import Table from './components/table';
-import AddProductModal from './components/AddProductModal';
+import SectionA from "./components/sectionA";
+import Table from "./components/table";
+import AddProductModal from "./components/addproductmodal";
 
 const Admin = () => {
     const router = useRouter();

@@ -18,7 +18,7 @@ export default function LoginPage() {
 
     try {
       await loginAction({ email, password });
-      window.location.href = "/admin"; // Redirige después del login
+      window.location.href = "/admin/product"; // Redirige después del login
     } catch (err) {
       setError("Credenciales incorrectas. Inténtalo de nuevo.");
     }

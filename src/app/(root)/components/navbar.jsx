@@ -89,8 +89,8 @@ const Navbar = () => {
           {isLoggedIn && (
             <>
               <a href="/" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
-              <a href="/admin" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
-              <a href="/clients" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
+              <a href="/admin/product" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
+              <a href="/admin/clients" className="hover:underline hover:text-primary-yellow active:text-yellow-500 transition-colors duration-200" style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
             </>
           )}
           
@@ -113,8 +113,8 @@ const Navbar = () => {
             
             <>
               <a href="/" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>INICIO</a>
-              <a href="/admin" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
-              <a href="/clients" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
+              <a href="/admin/product" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>PRODUCTOS</a>
+              <a href="/admin/clients" className="hover:underline" onClick={() => setIsOpen(false)} style={{ fontFamily: "'oktah', sans-serif" }}>CLIENTES</a>
               <button
                 onClick={() => {
                   handleLogout();
