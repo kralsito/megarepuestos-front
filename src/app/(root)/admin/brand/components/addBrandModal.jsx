@@ -2,18 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { createProductAction } from '@/actions/product';
+import { createBrandAction } from '@/actions/brand';
 
-const AddProductModal = ({ isOpen, onClose }) => {
+const AddBrandModal = ({ isOpen, onClose }) => {
     useEffect(() => {
         if (isOpen) {
             Swal.fire({
-                title: 'Agregar Producto',
+                title: 'Agregar Marca',
                 html:
                     '<div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">' +
-                    '<input id="image" type="file" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">' +
                     '<input id="name" class="swal2-input" placeholder="Nombre" style="width: 100%;">' +
-                    '<textarea id="description" class="swal2-textarea" placeholder="Descripción" style="width: 100%; height: 100px;"></textarea>' +
                     '</div>',
                 showCancelButton: true,
                 confirmButtonText: 'Guardar',
@@ -21,31 +19,27 @@ const AddProductModal = ({ isOpen, onClose }) => {
                     popup: 'swal-wide'
                 },
                 preConfirm: () => {
-                    const imageInput = document.getElementById('image');
                     const name = document.getElementById('name').value;
-                    const description = document.getElementById('description').value;
-                    const image = imageInput.files[0];
 
-                    if (!name || !description || !image) {
+
+                    if (!name) {
                         Swal.showValidationMessage('Todos los campos son obligatorios');
                     }
 
-                    return { name, description, image };
+                    return { name };
                 }
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    const { name, description, image } = result.value;
+                    const { name } = result.value;
                     const formData = new FormData();
                     formData.append('name', name);
-                    formData.append('description', description);
-                    formData.append('image', image);
 
                     try {
-                        await createProductAction(formData);
+                        await createBrandAction(formData);
                         Swal.fire({
                             icon: 'success',
-                            title: 'Producto agregado',
-                            text: 'El producto se agregó con éxito',
+                            title: 'Marca agregada',
+                            text: 'La marca se agregó con éxito',
                             toast: true,
                             position: 'top-end',
                             timer: 3000,
@@ -53,14 +47,14 @@ const AddProductModal = ({ isOpen, onClose }) => {
                         });
                         onClose();
                         setTimeout(() => {
-                            window.location.href = '/admin/product';
+                            window.location.href = '/admin/brand';
                         }, 1000);
                     } catch (error) {
-                        console.error('Error al agregar el producto:', error);
+                        console.error('Error al agregar la marca:', error);
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'No se pudo agregar el producto',
+                            text: 'No se pudo agregar la marca',
                             toast: true,
                             position: 'top-end',
                             timer: 3000,
@@ -75,4 +69,4 @@ const AddProductModal = ({ isOpen, onClose }) => {
     return null;
 };
 
-export default AddProductModal;
+export default AddBrandModal;

@@ -49,12 +49,11 @@ const Table = () => {
           title: "Producto eliminado",
           text: "El producto se eliminó correctamente.",
           timer: 2000,
-          showConfirmButton: false,
+          showConfirmButton: true,
+          confirmButtonText: "Cerrar",
+          confirmButtonColor: "#3085d6",
         });
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 2100);
       } catch (error) {
         console.error("Error al eliminar el producto:", error);
         Swal.fire({
