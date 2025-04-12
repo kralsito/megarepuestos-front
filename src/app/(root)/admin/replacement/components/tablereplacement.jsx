@@ -6,6 +6,8 @@ import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
 
+//CONDICIONAL LINEA 78 PARA VER SI EXISTE O NO
+
 const TableReplacement = () => {
   const [replacements, setReplacements] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,8 +19,9 @@ const TableReplacement = () => {
   const fetchReplacements = async () => {
     try {
       setLoading(true);
-      const data = await getReplacementsAction();
+      const { data } = await getReplacementsAction();
       setReplacements(data);
+      
     } catch (err) {
       console.error(err);
     } finally {
@@ -74,7 +77,7 @@ const TableReplacement = () => {
         </div>
       ) : (
         <div className="w-full">
-          <div className="block md:hidden">
+          <div className="block md:hidden"> 
             {replacements.map((rep) => (
               <div 
                 key={rep.id} 
