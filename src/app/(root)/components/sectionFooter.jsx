@@ -1,4 +1,4 @@
-import { Phone, MapPin, Instagram, Facebook, MessageCircle } from "lucide-react";
+import { Phone, MapPin, Instagram, Facebook } from "lucide-react";
 
 const SectionFooter = () => {
     return (
@@ -8,16 +8,19 @@ const SectionFooter = () => {
                     <h2 className="text-2xl mb-4" style={{ fontFamily: "'oktah', sans-serif" }}>Contactános</h2>
                     <div className="space-y-3">
                         <div className="flex items-center space-x-3">
-                            <MessageCircle className="w-6 h-6 text-black" />
-                            <span>+54 9 11 1234-5678</span>
-                        </div>
-                        <div className="flex items-center space-x-3">
                             <Phone className="w-6 h-6 text-black" />
                             <span>011-4321-8765</span>
                         </div>
                         <div className="flex items-center space-x-3">
                             <MapPin className="w-6 h-6 text-black" />
-                            <span>Av. Eva Perón 1453, Berazategui</span>
+                            <a
+                                href="https://maps.app.goo.gl/gVWJWAKucFYtSGUDA"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary-yellow transition"
+                            >
+                                Calle 150 N°1485, Berazategui
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -39,5 +42,6 @@ const SectionFooter = () => {
 };
 
 export default SectionFooter;
+
 
 
