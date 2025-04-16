@@ -1,6 +1,6 @@
 const SectionB = () => {
     return (
-        <div className="w-full h-12 bg-black"></div>
+        <div className="w-full h-24 bg-white"></div>
     );
 }
 

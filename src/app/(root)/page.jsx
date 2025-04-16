@@ -5,6 +5,7 @@ import SectionB from "./components/SectionB";
 import SectionC from "./components/sectionC";
 import SectionE from "./components/sectionE";
 import SectionF from "./components/sectionF";
+import SectionG from "./components/sectionG";
 
 export default function Home() {
     return (
@@ -12,6 +13,8 @@ export default function Home() {
             <SectionACarousel />
             <SectionC />
             <ProductCarousel />
+            <SectionB />
+            <SectionG />
             <SectionF />
             <SectionC />
             <SectionE />
