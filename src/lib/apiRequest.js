@@ -1,6 +1,4 @@
-import 'server-only';
-
-import { getValidToken } from "@/util/token";
+import { getValidToken } from './session'; 
 
 export async function apiRequest(endpoint, method = 'GET', body = null, contentType = 'application/json', requiresAuth = true) {
   let token;
@@ -9,17 +7,16 @@ export async function apiRequest(endpoint, method = 'GET', body = null, contentT
     token = await getValidToken();
   }
 
-  const url = new URL(`http://localhost:8080${endpoint}`)
+  const url = new URL(`http://localhost:8080${endpoint}`);
 
   const options = {
     method,
     headers: {}
-  }
+  };
 
   if (token) {
-      options.headers['Authorization'] = `Bearer ${token}`;
+    options.headers['Authorization'] = `Bearer ${token}`;
   }
-
 
   if(contentType === 'application/json' && body) {
     options.headers['Content-Type'] = 'application/json';
@@ -28,7 +25,7 @@ export async function apiRequest(endpoint, method = 'GET', body = null, contentT
     options.body = body;
   }
 
-  const res = await fetch(url, options)
+  const res = await fetch(url, options);
 
   if (!res.ok) {
     try {
@@ -46,8 +43,8 @@ export async function apiRequest(endpoint, method = 'GET', body = null, contentT
   return {
     data,
     headers: {
-      totalCount: res.headers.get('x-total-count'),
+      "x-total-count": res.headers.get('x-total-count'), 
       contentType: res.headers.get('content-type'),
     },
-  }
+  };
 }

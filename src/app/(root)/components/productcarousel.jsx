@@ -12,6 +12,7 @@ const ProductCarousel = () => {
     const [cardsToShow, setCardsToShow] = useState(4);
     const [isMobile, setIsMobile] = useState(false);
     const carouselRef = useRef(null);
+    const cardsContainerRef = useRef(null);
     
     const touchStartX = useRef(null);
     const touchEndX = useRef(null);
@@ -130,87 +131,95 @@ const ProductCarousel = () => {
     };
 
     return (
-        <div className="relative w-full max-w-full px-12 sm:px-14 md:px-16">
-            
-            <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
-                aria-label="Producto anterior"
-            >
-                <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
-            </button>
-            
-            <button
-                onClick={nextSlide}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
-                aria-label="Siguiente producto"
-            >
-                <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
-            </button>
+        <div className="w-full max-w-screen-2xl bg-white mx-auto pt-16 sm:pt-14 md:pt-12 pb-8 md:pb-12">
+            <h1 className="text-2xl md:text-3xl text-center mb-10 sm:mb-8 md:mb-8 tracking-wider text-black md:mt-8"
+            style={{ fontFamily: "'oktah', sans-serif" }}>
+                <span className="relative inline-block">
+                    PRODUCTOS NUEVOS
+                </span>
+            </h1>
 
-            <div className="w-full max-w-screen-2xl bg-white mx-auto py-8 md:py-12">
-                <h1 className="text-2xl md:text-3xl text-center mb-6 md:mb-8 tracking-wider text-black md:mt-8"
-                style={{ fontFamily: "'oktah', sans-serif" }}>
-                    <span className="relative inline-block">
-                        PRODUCTOS NUEVOS
-                    </span>
-                </h1>
-                <div 
-                    className="relative w-full bg-white overflow-hidden touch-pan-x" 
-                    ref={carouselRef}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseLeave}
+            {/* Espacio adicional en móviles */}
+            <div className="mt-8 sm:mt-6 md:mt-4"></div>
+
+            {/* Contenedor principal del carrusel con posición relativa */}
+            <div className="relative w-full">
+                {/* Botones de navegación */}
+                <button
+                    onClick={prevSlide}
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
+                    aria-label="Producto anterior"
                 >
-                    {isLoading ? (
-                        <div className="flex justify-center py-16">
-                            <CustomLoading />
-                        </div>
-                    ) : (
-                        <div 
-                            className="flex transition-transform duration-500 ease-in-out"
-                            style={{ 
-                                width: products.length > 0 ? `${(100 * products.length) / cardsToShow}%` : '100%',
-                                transform: `translateX(-${(currentIndex * 100) / (products.length || 1)}%)`
-                            }}
-                        >
-                            {products.map((product, index) => (
-                                <div 
-                                key={index} 
-                                className="px-2 sm:px-3 md:px-4" 
-                                style={{ width: `${100 / products.length}%` }}
-                            >
-                                <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2 flex flex-col items-center
-                                    w-full max-w-full
-                                    h-64 sm:h-72 md:h-80 lg:h-96
-                                    hover:shadow-lg transition-shadow duration-300">
-                                    <div className="w-full h-44 sm:h-52 md:h-60 lg:h-72 relative">
-                                        <img 
-                                            src={product.s3Url} 
-                                            alt={product.name} 
-                                            className="w-full h-full object-contain"
-                                            draggable="false"
-                                        />
-                                    </div>
-                                    <div className="w-full h-1 bg-yellow-400 mt-2"></div>
-                                    <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
-                                        <h3 className="text-sm md:text-lg font-medium tracking-wide text-black-800 truncate text-black">{product.name}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            ))}
+                    <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+                </button>
+                
+                <button
+                    onClick={nextSlide}
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
+                    aria-label="Siguiente producto"
+                >
+                    <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
+                </button>
 
-                            {products.length === 0 && !isLoading && (
-                                <div className="w-full py-16 text-center text-gray-500">
-                                    No hay productos disponibles
-                                </div>
-                            )}
-                        </div>
-                    )}
+                {/* Contenedor con padding horizontal para dejar espacio a los botones */}
+                <div className="px-14 sm:px-16 md:px-20" ref={cardsContainerRef}>
+                    <div 
+                        className="relative w-full bg-white overflow-hidden touch-pan-x" 
+                        ref={carouselRef}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        {isLoading ? (
+                            <div className="flex justify-center py-16">
+                                <CustomLoading />
+                            </div>
+                        ) : (
+                            <div 
+                                className="flex transition-transform duration-500 ease-in-out"
+                                style={{ 
+                                    width: products.length > 0 ? `${(100 * products.length) / cardsToShow}%` : '100%',
+                                    transform: `translateX(-${(currentIndex * 100) / (products.length || 1)}%)`
+                                }}
+                            >
+                                {products.map((product, index) => (
+                                    <div 
+                                        key={index} 
+                                        className="px-2 sm:px-3 md:px-4" 
+                                        style={{ width: `${100 / products.length}%` }}
+                                    >
+                                        <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2 flex flex-col items-center
+                                            w-full max-w-full
+                                            h-64 sm:h-72 md:h-80 lg:h-96
+                                            hover:shadow-lg transition-shadow duration-300">
+                                            <div className="w-full h-44 sm:h-52 md:h-60 lg:h-72 relative">
+                                                <img 
+                                                    src={product.s3Url} 
+                                                    alt={product.name} 
+                                                    className="w-full h-full object-contain"
+                                                    draggable="false"
+                                                />
+                                            </div>
+                                            <div className="w-full h-1 bg-yellow-400 mt-2"></div>
+                                            <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
+                                                <h3 className="text-sm md:text-lg font-medium tracking-wide text-black-800 truncate text-black">{product.name}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {products.length === 0 && !isLoading && (
+                                    <div className="w-full py-16 text-center text-gray-500">
+                                        No hay productos disponibles
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

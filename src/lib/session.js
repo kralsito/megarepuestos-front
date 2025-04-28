@@ -30,3 +30,7 @@ export async function getSession(){
       }
     })
 }
+
+export async function getValidToken() {
+  return await getToken();
+}
