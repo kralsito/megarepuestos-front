@@ -1,20 +1,20 @@
 "use client";
 
 import React from "react";
+// Importa los iconos de flechas de lucide-react
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
-  // Determinar qué páginas mostrar
+  
   const getPageNumbers = () => {
     const pages = [];
     const maxPagesToShow = 5;
     
     if (totalPages <= maxPagesToShow) {
-      // Si hay menos páginas que el máximo a mostrar, mostrar todas
       for (let i = 0; i < totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Si hay más páginas, mostrar un rango alrededor de la página actual
       const leftSide = Math.floor(maxPagesToShow / 2);
       const rightSide = maxPagesToShow - leftSide - 1;
       
@@ -47,20 +47,26 @@ const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
     return pages;
   };
 
+  const handlePageClick = (pageNum) => {
+    onPageChange(pageNum);
+  };
+
   return (
     <div className="flex justify-center items-center mt-6 mb-4">
       <nav className="flex items-center space-x-2">
-        {/* Botón anterior */}
+        {/* Botón anterior con icono */}
         <button
-          onClick={() => currentPage > 0 && onPageChange(currentPage - 1)}
+          onClick={() => currentPage > 0 && handlePageClick(currentPage - 1)}
           disabled={currentPage === 0}
-          className={`px-3 py-1 rounded-md ${
+          className={`p-2 rounded-md flex items-center justify-center ${
             currentPage === 0
-              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
+          aria-label="Página anterior"
+          title="Página anterior"
         >
-          Anterior
+          <ChevronLeft size={18} />
         </button>
         
         {/* Números de página */}
@@ -75,10 +81,10 @@ const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
           return (
             <button
               key={`page-${pageNum}`}
-              onClick={() => onPageChange(pageNum)}
+              onClick={() => handlePageClick(pageNum)}
               className={`px-3 py-1 rounded-md ${
                 currentPage === pageNum
-                  ? "bg-blue-600 text-white"
+                  ? "bg-primary-yellow text-black"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -87,17 +93,19 @@ const PaginationComponent = ({ currentPage, totalPages, onPageChange }) => {
           );
         })}
         
-        {/* Botón siguiente */}
+        {/* Botón siguiente con icono */}
         <button
-          onClick={() => currentPage < totalPages - 1 && onPageChange(currentPage + 1)}
+          onClick={() => currentPage < totalPages - 1 && handlePageClick(currentPage + 1)}
           disabled={currentPage >= totalPages - 1}
-          className={`px-3 py-1 rounded-md ${
+          className={`p-2 rounded-md flex items-center justify-center ${
             currentPage >= totalPages - 1
-              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
+          aria-label="Página siguiente"
+          title="Página siguiente"
         >
-          Siguiente
+          <ChevronRight size={18} />
         </button>
       </nav>
     </div>

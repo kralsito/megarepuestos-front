@@ -8,7 +8,7 @@ const TermsAndConditions = () => {
 
     return (
       <div className="container mx-auto p-6">
-        <div className="flex justify-between items-center mb-6 md:mt-16">
+        <div className="flex justify-between items-center mb-6 md:mt-32">
           <button onClick={() => router.back()} className="text-black hover:underline flex items-center" style={{ fontFamily: "'oktah', sans-serif" }}>
             <ArrowLeft className="w-5 h-5 mr-1" /> INICIO
           </button>
@@ -81,7 +81,7 @@ const TermsAndConditions = () => {
         <section className="mb-4">
           <h2 className="text-xl font-semibold">7. Contacto</h2>
           <p>
-            Para cualquier consulta o solicitud relacionada con estos Términos y Condiciones, puedes comunicarte con nosotros a través de [correo electrónico o teléfono de contacto].
+            Para cualquier consulta o solicitud relacionada con estos Términos y Condiciones, puedes comunicarte con nosotros a través de Megalocal14@gmail.com .
           </p>
         </section>
       </div>

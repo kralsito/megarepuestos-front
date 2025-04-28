@@ -1,16 +1,19 @@
-
 'use client';
 
 import TableReplacements from './components/tablereplacements';
 import SectionAReplacementsList from './components/sectionAReplacementslist';
-import SectionF
- from '../components/sectionF';
+import SectionFooter from '../components/sectionFooter';
+
 const Replacements = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <SectionAReplacementsList />
-      <TableReplacements />
-      <SectionF />
+    <div className="min-h-screen bg-gray-100">
+      <div className="p-8">
+        <SectionAReplacementsList />
+        <TableReplacements />
+      </div>
+      <div>
+        <SectionFooter />
+      </div>
     </div>
   );
 };

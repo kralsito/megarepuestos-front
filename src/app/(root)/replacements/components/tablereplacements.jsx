@@ -11,11 +11,15 @@ const TableReplacements = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
   const [activeFilters, setActiveFilters] = useState({
     name: "",
     brand_id: "",
     typeReplacement_id: "",
   });
+
+  useEffect(() => {
+  }, [currentPage]);
 
   useEffect(() => {
     fetchReplacements();
@@ -25,30 +29,27 @@ const TableReplacements = () => {
     try {
       setLoading(true);
       
-      // Construir query params para el filtrado
       const queryParams = new URLSearchParams();
-      queryParams.append("page", currentPage);
-      queryParams.append("size", 20);
+      queryParams.append("page", currentPage.toString());
+      queryParams.append("size", "20");
       
-      // Añadir los filtros a los parámetros de consulta si tienen valor
       if (activeFilters.name) queryParams.append("name", activeFilters.name);
       if (activeFilters.brand_id) queryParams.append("brand_id", activeFilters.brand_id);
       if (activeFilters.typeReplacement_id) queryParams.append("typeReplacement_id", activeFilters.typeReplacement_id);
       
-      console.log("Enviando filtros:", queryParams.toString());
       
-      // Llamar a la API con los filtros
       const response = await getReplacementsAction(queryParams.toString());
-      console.log("Respuesta recibida:", response);
-      
-      // Verificamos si response.data existe y es un array
+
       if (response && response.data && Array.isArray(response.data)) {
         setReplacements(response.data);
         
         // Calcular el total de páginas
-        const totalItems = parseInt(response.headers?.["x-total-count"] || "0");
+        const total = parseInt(response.headers?.["x-total-count"] || "0");
+        setTotalItems(total);
+        
         const pageSize = 20;
-        setTotalPages(Math.ceil(totalItems / pageSize) || 1); // Mínimo 1 página
+        const calculatedPages = Math.max(Math.ceil(total / pageSize), 1); // Mínimo 1 página
+        setTotalPages(calculatedPages);
       } else {
         console.error("Formato de respuesta incorrecto:", response);
         setReplacements([]);
@@ -64,17 +65,17 @@ const TableReplacements = () => {
   };
 
   const handleFilterChange = (newFilters) => {
-    console.log("Aplicando filtros:", newFilters);
     setActiveFilters(newFilters);
     setCurrentPage(0); // Reset a la primera página cuando cambian los filtros
   };
 
   const handlePageChange = (newPage) => {
+    // Asegúrate de que setCurrentPage esté actualizando el estado correctamente
     setCurrentPage(newPage);
   };
 
   return (
-    <div className="relative w-full overflow-x-auto px-4">
+    <div className="w-full px-2 sm:px-4">
       <FilterComponent onFilterChange={handleFilterChange} />
       
       {loading ? (
@@ -83,21 +84,13 @@ const TableReplacements = () => {
         </div>
       ) : (
         <div className="w-full">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium">Filtros activos:</h3>
-            <ul className="text-sm text-gray-600">
-              {activeFilters.name && <li>Nombre: {activeFilters.name}</li>}
-              {activeFilters.brand_id && <li>Marca: {activeFilters.brand_id}</li>}
-              {activeFilters.typeReplacement_id && <li>Tipo: {activeFilters.typeReplacement_id}</li>}
-            </ul>
-          </div>
-          
-          <table className="min-w-full table-auto border-collapse shadow-lg rounded-lg overflow-hidden bg-white">
+          {/* Tabla que siempre se ajusta al ancho disponible sin scroll horizontal */}
+          <table className="w-full table-fixed border-collapse shadow-lg rounded-lg overflow-hidden bg-white text-xs sm:text-sm md:text-base">
             <thead>
               <tr className="bg-gray-800 text-white text-left">
-                <th className="px-6 py-3">Nombre</th>
-                <th className="px-6 py-3">Tipo de Repuesto</th>
-                <th className="px-6 py-3">Marca</th>
+                <th className="px-1 sm:px-2 md:px-4 py-2 md:py-3 w-2/5 sm:w-1/2">Nombre</th>
+                <th className="px-1 sm:px-2 md:px-4 py-2 md:py-3 w-1/3 sm:w-1/4">Tipo</th>
+                <th className="px-1 sm:px-2 md:px-4 py-2 md:py-3 w-1/4">Marca</th>
               </tr>
             </thead>
             <tbody>
@@ -109,14 +102,14 @@ const TableReplacements = () => {
                       index % 2 === 0 ? "bg-gray-100" : "bg-white"
                     } hover:bg-gray-200 transition-colors`}
                   >
-                    <td className="px-6 py-3">{rep.name}</td>
-                    <td className="px-6 py-3">{rep.typeReplacement?.name || 'N/A'}</td>
-                    <td className="px-6 py-3">{rep.brand?.name || 'N/A'}</td>
+                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 font-medium break-words">{rep.name}</td>
+                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 truncate">{rep.typeReplacement?.name || 'N/A'}</td>
+                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 truncate">{rep.brand?.name || 'N/A'}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
+                  <td colSpan="3" className="px-4 py-4 text-center text-gray-500">
                     No se encontraron repuestos con los filtros aplicados
                   </td>
                 </tr>
@@ -124,11 +117,13 @@ const TableReplacements = () => {
             </tbody>
           </table>
           
-          <PaginationComponent
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+          <div className="mt-4">
+            <PaginationComponent
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       )}
     </div>
