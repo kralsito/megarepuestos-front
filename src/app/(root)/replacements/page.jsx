@@ -3,6 +3,7 @@
 import TableReplacements from './components/tablereplacements';
 import SectionAReplacementsList from './components/sectionAReplacementslist';
 import SectionFooter from '../components/sectionFooter';
+import SectionH from '../components/SectionH';
 
 const Replacements = () => {
   return (
@@ -12,6 +13,7 @@ const Replacements = () => {
         <TableReplacements />
       </div>
       <div>
+        <SectionH />
         <SectionFooter />
       </div>
     </div>
