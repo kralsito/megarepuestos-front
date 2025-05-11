@@ -5,9 +5,9 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-    "/images/fondo1.jpg",
-    "/images/fondo2.png",
+    "/images/fondo1.png",
     "/images/fondo3.png",
+    "/images/fondo2.png",
 ];
 
 const SectionACarousel = () => {
