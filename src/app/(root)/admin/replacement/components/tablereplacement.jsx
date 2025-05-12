@@ -6,6 +6,7 @@ import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
 import PaginationAdminComponent from "../../components/paginationAdmin";
+import FilterReplacementsAdmin from "../../components/filterreplacements";
 
 const TableReplacement = () => {
   const [replacements, setReplacements] = useState([]);
@@ -14,24 +15,43 @@ const TableReplacement = () => {
   // Estados para la paginación
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [pageSize, setPageSize] = useState(20); // El número de elementos por página (por defecto 20 como en tu API)
+  const [pageSize, setPageSize] = useState(20);
+  
+  // Estado para almacenar los filtros actuales
+  const [activeFilters, setActiveFilters] = useState({
+    name: "",
+    brand_id: "",
+    typeReplacement_id: "",
+  });
 
   useEffect(() => {
     fetchReplacements();
-  }, [currentPage, pageSize]); // Refetch cuando cambia la página o el tamaño de página
+  }, [currentPage, pageSize, activeFilters]); // Refetch cuando cambia la página, el tamaño o los filtros
 
   const fetchReplacements = async () => {
     try {
       setLoading(true);
-      // Formateamos los parámetros de consulta según tu API
-      const queryParams = `page=${currentPage}&size=${pageSize}`;
       
-      // Llamamos a la acción con los parámetros de paginación
+      // Construimos los parámetros de consulta incluyendo filtros y paginación
+      let queryParams = `page=${currentPage}&size=${pageSize}`;
+      
+      // Agregamos los filtros activos a la consulta
+      if (activeFilters.name) {
+        queryParams += `&name=${encodeURIComponent(activeFilters.name)}`;
+      }
+      if (activeFilters.brand_id) {
+        queryParams += `&brand_id=${activeFilters.brand_id}`;
+      }
+      if (activeFilters.typeReplacement_id) {
+        queryParams += `&typeReplacement_id=${activeFilters.typeReplacement_id}`;
+      }
+      
+      // Llamamos a la acción con los parámetros completos
       const { data, headers } = await getReplacementsAction(queryParams);
       
       setReplacements(data);
       
-
+      // Manejo de la paginación desde la respuesta
       if (headers && headers["x-total-pages"]) {
         setTotalPages(parseInt(headers["x-total-pages"], 10));
       } else if (headers && headers["total-pages"]) {
@@ -53,6 +73,12 @@ const TableReplacement = () => {
     // No es necesario llamar a fetchReplacements aquí ya que el useEffect se activará
   };
 
+  // Manejador para cuando cambian los filtros
+  const handleFilterChange = (filters) => {
+    setActiveFilters(filters);
+    setCurrentPage(0); // Resetear a la primera página cuando se cambian los filtros
+  };
+
   const handleDelete = async (replacement) => {
     const result = await Swal.fire({
       title: "¿Estás seguro?",
@@ -69,11 +95,9 @@ const TableReplacement = () => {
       try {
         await deleteReplacementAction(replacement.id);
         
-
         if (replacements.length === 1 && currentPage > 0) {
           setCurrentPage(currentPage - 1);
         } else {
-
           fetchReplacements();
         }
 
@@ -100,6 +124,9 @@ const TableReplacement = () => {
 
   return (
     <div className="relative w-full overflow-x-auto">
+      {/* Componente de filtros */}
+      <FilterReplacementsAdmin onFilterChange={handleFilterChange} />
+      
       {loading ? (
         <div className="flex justify-center py-16">
           <CustomLoading />
@@ -130,7 +157,6 @@ const TableReplacement = () => {
               </div>
             ))}
           </div>
-
 
           <table className="w-full table-auto border-collapse border border-gray-300 hidden md:table">
             <thead>
@@ -171,7 +197,7 @@ const TableReplacement = () => {
             </tbody>
           </table>
           
-          {!loading && (
+          {!loading && replacements.length > 0 && (
             <PaginationAdminComponent 
               currentPage={currentPage}
               totalPages={totalPages || 1} 
