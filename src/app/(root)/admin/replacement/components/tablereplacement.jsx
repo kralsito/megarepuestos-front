@@ -5,28 +5,52 @@ import { getReplacementsAction, deleteReplacementAction } from "@/actions/replac
 import { Trash2 } from "lucide-react"; 
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
-
-//CONDICIONAL LINEA 78 PARA VER SI EXISTE O NO
+import PaginationAdminComponent from "../../components/paginationAdmin";
 
 const TableReplacement = () => {
   const [replacements, setReplacements] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Estados para la paginación
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [pageSize, setPageSize] = useState(20); // El número de elementos por página (por defecto 20 como en tu API)
 
   useEffect(() => {
     fetchReplacements();
-  }, []);
+  }, [currentPage, pageSize]); // Refetch cuando cambia la página o el tamaño de página
 
   const fetchReplacements = async () => {
     try {
       setLoading(true);
-      const { data } = await getReplacementsAction();
+      // Formateamos los parámetros de consulta según tu API
+      const queryParams = `page=${currentPage}&size=${pageSize}`;
+      
+      // Llamamos a la acción con los parámetros de paginación
+      const { data, headers } = await getReplacementsAction(queryParams);
+      
       setReplacements(data);
+      
+
+      if (headers && headers["x-total-pages"]) {
+        setTotalPages(parseInt(headers["x-total-pages"], 10));
+      } else if (headers && headers["total-pages"]) {
+        setTotalPages(parseInt(headers["total-pages"], 10));
+      } else {
+        const totalItems = headers["x-total-count"] || headers["total-count"] || data.length;
+        setTotalPages(Math.ceil(totalItems / pageSize) || 1);
+      }
       
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (pageNum) => {
+    setCurrentPage(pageNum);
+    // No es necesario llamar a fetchReplacements aquí ya que el useEffect se activará
   };
 
   const handleDelete = async (replacement) => {
@@ -45,18 +69,23 @@ const TableReplacement = () => {
       try {
         await deleteReplacementAction(replacement.id);
         
-        setReplacements(replacements.filter(r => r.id !== replacement.id));
+
+        if (replacements.length === 1 && currentPage > 0) {
+          setCurrentPage(currentPage - 1);
+        } else {
+
+          fetchReplacements();
+        }
 
         Swal.fire({
-            icon: "success",
-            title: "Repuesto eliminada",
-            text: "El repuesto se eliminó correctamente.",
-            timer: 2000,
-            showConfirmButton: true,
-            confirmButtonText: "Cerrar",
-            confirmButtonColor: "#3085d6",
-          });
-
+          icon: "success",
+          title: "Repuesto eliminado",
+          text: "El repuesto se eliminó correctamente.",
+          timer: 2000,
+          showConfirmButton: true,
+          confirmButtonText: "Cerrar",
+          confirmButtonColor: "#3085d6",
+        });
 
       } catch (error) {
         console.error("Error al eliminar el repuesto:", error);
@@ -102,7 +131,7 @@ const TableReplacement = () => {
             ))}
           </div>
 
-          {/* Desktop View - Table Layout */}
+
           <table className="w-full table-auto border-collapse border border-gray-300 hidden md:table">
             <thead>
               <tr className="text-left bg-gray-200">
@@ -114,25 +143,41 @@ const TableReplacement = () => {
               </tr>
             </thead>
             <tbody>
-              {replacements.map((rep) => (
-                <tr key={rep.id} className="bg-white hover:bg-gray-100 border border-gray-300">
-                  <td className="px-4 py-2 border">{rep.id}</td>
-                  <td className="px-4 py-2 border">{rep.name}</td>
-                  <td className="px-4 py-2 border">{rep.typeReplacement.name}</td>
-                  <td className="px-4 py-2 border">{rep.brand.name}</td>
-                  <td className="px-4 py-2 border">
-                    <button 
-                      className="text-red-500 hover:text-red-700 focus:outline-none"
-                      onClick={() => handleDelete(rep)}
-                      title="Eliminar marca"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+              {replacements.length > 0 ? (
+                replacements.map((rep) => (
+                  <tr key={rep.id} className="bg-white hover:bg-gray-100 border border-gray-300">
+                    <td className="px-4 py-2 border">{rep.id}</td>
+                    <td className="px-4 py-2 border">{rep.name}</td>
+                    <td className="px-4 py-2 border">{rep.typeReplacement.name}</td>
+                    <td className="px-4 py-2 border">{rep.brand.name}</td>
+                    <td className="px-4 py-2 border">
+                      <button 
+                        className="text-red-500 hover:text-red-700 focus:outline-none"
+                        onClick={() => handleDelete(rep)}
+                        title="Eliminar repuesto"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="px-4 py-4 text-center text-gray-500">
+                    No hay repuestos disponibles
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
+          
+          {!loading && (
+            <PaginationAdminComponent 
+              currentPage={currentPage}
+              totalPages={totalPages || 1} 
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
       )}
     </div>

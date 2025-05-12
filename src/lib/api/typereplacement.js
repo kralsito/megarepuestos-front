@@ -12,3 +12,7 @@ export async function createTypeReplacement(formData) {
 export async function deleteTypeReplacement(id){
   return await apiRequest(`/typeReplacement/${id}`, 'DELETE', null, 'application/json', true)
 }
+
+export async function getTypeReplacementsDropDown() {
+  return await apiRequest(`/typeReplacement?size=100`, 'GET', null, 'application/json', false);
+}
