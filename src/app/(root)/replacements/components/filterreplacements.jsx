@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getBrandsAction } from "@/actions/brand";
-import { getTypeReplacementsAction } from "@/actions/typereplacement"; 
+import { getTypeReplacementsDropdownAction } from "@/actions/typereplacement"; 
 
 const FilterComponent = ({ onFilterChange }) => {
   const [brands, setBrands] = useState([]);
@@ -18,7 +18,7 @@ const FilterComponent = ({ onFilterChange }) => {
     const fetchFilterData = async () => {
       try {
         const brandsData = await getBrandsAction();
-        const typesData = await getTypeReplacementsAction();
+        const typesData = await getTypeReplacementsDropdownAction();
         
         setBrands(brandsData);
         setTypes(typesData);
