@@ -1,9 +1,10 @@
 import 'server-only'
 import { apiRequest } from '../apiRequest'
 
-export async function getForms() {
-    return await apiRequest(`/form?page=0&size=20`, 'GET', null, 'application/json', false)
-  }
+export async function getForms(page = 0, size = 10) {
+  return await apiRequest(`/form?page=${page}&size=${size}`, 'GET', null, 'application/json', false);
+}
+
 
 export async function createForm(formData) { 
     const params = new URLSearchParams();

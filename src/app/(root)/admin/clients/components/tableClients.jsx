@@ -2,23 +2,29 @@
 
 import { useEffect, useState } from "react";
 import { getFormsAction, deleteFormAction } from "@/actions/form";
-import { Trash2 } from "lucide-react"; 
+import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
+import PaginationAdminComponent from "../../components/paginationAdmin";
+
+const PAGE_SIZE = 20;
 
 const TableClients = () => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetchClients();
-  }, []);
+    fetchClients(currentPage);
+  }, [currentPage]);
 
-  const fetchClients = async () => {
+  const fetchClients = async (page) => {
     try {
       setLoading(true);
-      const data = await getFormsAction();
+      const { data, totalPages } = await getFormsAction(page, PAGE_SIZE);
       setClients(data);
+      setTotalPages(totalPages);
     } catch (err) {
       console.error(err);
     } finally {
@@ -41,8 +47,7 @@ const TableClients = () => {
     if (result.isConfirmed) {
       try {
         await deleteFormAction(client.id);
-        
-        setClients(clients.filter(c => c.id !== client.id));
+        fetchClients(currentPage); // Actualiza la lista
 
         Swal.fire({
           icon: "success",
@@ -53,7 +58,6 @@ const TableClients = () => {
           confirmButtonText: "Cerrar",
           confirmButtonColor: "#3085d6",
         });
-
       } catch (error) {
         console.error("Error al eliminar el cliente:", error);
         Swal.fire({
@@ -76,13 +80,13 @@ const TableClients = () => {
           {/* Mobile View - Card Layout */}
           <div className="block md:hidden">
             {clients.map((cli) => (
-              <div 
-                key={cli.id} 
+              <div
+                key={cli.id}
                 className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200"
               >
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-lg font-semibold">{cli.id}</h3>
-                  <button 
+                  <button
                     className="text-red-500 hover:text-red-700 focus:outline-none"
                     onClick={() => handleDelete(cli)}
                     title="Eliminar cliente"
@@ -106,7 +110,7 @@ const TableClients = () => {
                 <th className="px-4 py-2 border">Id</th>
                 <th className="px-4 py-2 border">Nombre</th>
                 <th className="px-4 py-2 border">Apellido</th>
-                <th className="px-4 py-2 border">Número de telefono</th>
+                <th className="px-4 py-2 border">Número de teléfono</th>
                 <th className="px-4 py-2 border">Acciones</th>
               </tr>
             </thead>
@@ -118,7 +122,7 @@ const TableClients = () => {
                   <td className="px-4 py-2 border">{cli.lastName}</td>
                   <td className="px-4 py-2 border">{cli.phoneNumber}</td>
                   <td className="px-4 py-2 border">
-                    <button 
+                    <button
                       className="text-red-500 hover:text-red-700 focus:outline-none"
                       onClick={() => handleDelete(cli)}
                       title="Eliminar cliente"
@@ -130,6 +134,15 @@ const TableClients = () => {
               ))}
             </tbody>
           </table>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <PaginationAdminComponent
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
         </div>
       )}
     </div>

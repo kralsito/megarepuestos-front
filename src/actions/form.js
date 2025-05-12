@@ -2,10 +2,18 @@
 
 import { getForms, createForm, checkPhoneNumberExists, deleteForm } from "@/lib/api/form"
 
-export async function getFormsAction() {
-    const {data, headers} = await getForms()
-    return data
-  }
+
+export async function getFormsAction(page, size) {
+  const { data, headers } = await getForms(page, size);
+
+  const totalCount = parseInt(headers['x-total-count'], 10) || 0;
+  const totalPages = Math.ceil(totalCount / size);
+
+  return {
+    data,
+    totalPages,
+  };
+}
 
 export async function createFormAction(formData) {
     const {data, headers} = await createForm(formData)
