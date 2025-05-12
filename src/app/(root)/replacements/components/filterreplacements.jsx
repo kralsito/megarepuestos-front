@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getBrandsAction } from "@/actions/brand";
+import { getBrandsDropdownAction } from "@/actions/brand";
 import { getTypeReplacementsDropdownAction } from "@/actions/typereplacement"; 
 
 const FilterComponent = ({ onFilterChange }) => {
@@ -17,7 +17,7 @@ const FilterComponent = ({ onFilterChange }) => {
   useEffect(() => {
     const fetchFilterData = async () => {
       try {
-        const brandsData = await getBrandsAction();
+        const brandsData = await getBrandsDropdownAction();
         const typesData = await getTypeReplacementsDropdownAction();
         
         setBrands(brandsData);
