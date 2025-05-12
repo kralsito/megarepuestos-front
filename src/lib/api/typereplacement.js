@@ -1,9 +1,10 @@
 import 'server-only'
 import { apiRequest } from '../apiRequest'
 
-export async function getTypeReplacements() {
-    return await apiRequest(`/typeReplacement`, 'GET', null, 'application/json', false)
-  }
+export async function getTypeReplacements(page = 0, size = 10) {
+  return await apiRequest(`/typeReplacement?page=${page}&size=${size}`, 'GET', null, 'application/json', false);
+}
+
 
 export async function createTypeReplacement(formData) { 
   return await apiRequest(`/typeReplacement`, 'POST', formData, 'multipart/form-data', true)

@@ -5,20 +5,24 @@ import { getTypeReplacementsAction, deleteTypeReplacementAction } from "@/action
 import { Trash2 } from "lucide-react"; 
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
+import PaginationAdminComponent from "../../components/paginationAdmin";
 
 const TableTypeReplacements = () => {
   const [typereplacements, setTypeReplacement] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0); // Página actual
+  const [totalPages, setTotalPages] = useState(1);   // Total de páginas
 
   useEffect(() => {
-    fetchTypeReplacements();
-  }, []);
+    fetchTypeReplacements(currentPage); // Cargar datos de la página actual
+  }, [currentPage]);
 
-  const fetchTypeReplacements = async () => {
+  const fetchTypeReplacements = async (page = 0) => {
     try {
       setLoading(true);
-      const data = await getTypeReplacementsAction();
+      const { data, totalPages } = await getTypeReplacementsAction(page, 20); // Pasa la página y el tamaño
       setTypeReplacement(data);
+      setTotalPages(totalPages); // Establecer el total de páginas
     } catch (err) {
       console.error(err);
     } finally {
@@ -53,8 +57,6 @@ const TableTypeReplacements = () => {
             confirmButtonText: "Cerrar",
             confirmButtonColor: "#3085d6",
           });
-
-
       } catch (error) {
         console.error("Error al eliminar el tipo de repuesto:", error);
         Swal.fire({
@@ -124,6 +126,13 @@ const TableTypeReplacements = () => {
               ))}
             </tbody>
           </table>
+
+          {/* Pagination Component */}
+          <PaginationAdminComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage} // Actualiza la página cuando el usuario navega
+          />
         </div>
       )}
     </div>
