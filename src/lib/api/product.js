@@ -12,3 +12,7 @@ export async function createProduct(formData) {
 export async function deleteProduct(id){
   return await apiRequest(`/product/${id}`, 'DELETE', null, 'application/json', true)
 }
+
+export async function getProductsAdmin(page = 0, size = 10) {
+    return await apiRequest(`/product?page=${page}&size=${size}`, 'GET', null, 'application/json', false)
+  }

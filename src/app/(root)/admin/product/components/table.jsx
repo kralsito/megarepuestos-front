@@ -1,30 +1,46 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getProductsAction, deleteProductAction } from "@/actions/product";
+import { getProductsAdminAction, deleteProductAction } from "@/actions/product";
 import { Trash2 } from "lucide-react"; 
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
+import PaginationAdminComponent from "../../components/paginationAdmin";
 
 const Table = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const size = 10; 
+
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (page = 0) => {
     try {
       setLoading(true);
-      const data = await getProductsAction();
+      const { data, totalPages } = await getProductsAdminAction(page, size);
       setProducts(data);
+      setTotalPages(totalPages);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchProducts(currentPage);
+  }, [currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+
 
   const handleDelete = async (product) => {
     const result = await Swal.fire({
@@ -142,6 +158,11 @@ const Table = () => {
               ))}
             </tbody>
           </table>
+          <PaginationAdminComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       )}
     </div>
