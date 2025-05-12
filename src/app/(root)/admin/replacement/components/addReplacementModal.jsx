@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { createReplacementAction } from '@/actions/replacement';
 import { getBrandsAction } from '@/actions/brand';
-import { getTypeReplacementsAction } from '@/actions/typereplacement';
+import { getTypeReplacementsDropdownAction } from '@/actions/typereplacement';
 
 const AddReplacementModal = ({ isOpen, onClose }) => {
     const [brands, setBrands] = useState([]);
@@ -18,7 +18,7 @@ const AddReplacementModal = ({ isOpen, onClose }) => {
                 try {
                     const [brandsData, typeReplacementsData] = await Promise.all([
                         getBrandsAction(),
-                        getTypeReplacementsAction()
+                        getTypeReplacementsDropdownAction()
                     ]);
                     
                     setBrands(brandsData);
