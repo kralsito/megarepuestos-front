@@ -5,25 +5,39 @@ import { getBrandsAction, deleteBrandAction } from "@/actions/brand";
 import { Trash2 } from "lucide-react"; 
 import Swal from "sweetalert2";
 import CustomLoading from "@/app/components/customLoading";
+import PaginationAdminComponent from "../../components/paginationAdmin";
 
 const TableBrands = () => {
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const size = 10; 
+
 
   useEffect(() => {
     fetchBrands();
   }, []);
 
-  const fetchBrands = async () => {
+  const fetchBrands = async (page = 0) => {
     try {
       setLoading(true);
-      const data = await getBrandsAction();
+      const { data, totalPages } = await getBrandsAction(page, size);
       setBrands(data);
+      setTotalPages(totalPages);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchBrands(currentPage);
+  }, [currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const handleDelete = async (brand) => {
@@ -124,6 +138,12 @@ const TableBrands = () => {
               ))}
             </tbody>
           </table>
+          <PaginationAdminComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+
         </div>
       )}
     </div>

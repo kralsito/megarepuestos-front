@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { createReplacementAction } from '@/actions/replacement';
-import { getBrandsAction } from '@/actions/brand';
+import { getBrandsDropdownAction } from '@/actions/brand';
 import { getTypeReplacementsDropdownAction } from '@/actions/typereplacement';
 
 const AddReplacementModal = ({ isOpen, onClose }) => {
@@ -17,7 +17,7 @@ const AddReplacementModal = ({ isOpen, onClose }) => {
                 setLoading(true);
                 try {
                     const [brandsData, typeReplacementsData] = await Promise.all([
-                        getBrandsAction(),
+                        getBrandsDropdownAction(),
                         getTypeReplacementsDropdownAction()
                     ]);
                     
