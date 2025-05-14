@@ -19,6 +19,20 @@ const ProductCarousel = () => {
     const minSwipeDistance = 50;
     const [isDragging, setIsDragging] = useState(false);
 
+    // Importación de la fuente Poppins en el componente (opcional, también puedes hacerlo globalmente)
+    useEffect(() => {
+        // Verificamos si la fuente ya está cargada para evitar duplicados
+        const linkElement = document.createElement('link');
+        linkElement.rel = 'stylesheet';
+        linkElement.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap';
+        document.head.appendChild(linkElement);
+        
+        return () => {
+            // Limpieza (opcional)
+            document.head.removeChild(linkElement);
+        };
+    }, []);
+
     const updateCardsToShow = () => {
         const width = window.innerWidth;
         setIsMobile(width < 640);
@@ -29,6 +43,8 @@ const ProductCarousel = () => {
             setCardsToShow(2);
         } else if (width < 1024) {
             setCardsToShow(3);
+        } else if (width < 1280) {
+            setCardsToShow(3); // Reducir a 3 tarjetas en pantallas más pequeñas de desktop
         } else {
             setCardsToShow(4);
         }
@@ -139,15 +155,12 @@ const ProductCarousel = () => {
                 </span>
             </h1>
 
-            {/* Espacio adicional en móviles */}
             <div className="mt-8 sm:mt-6 md:mt-4"></div>
 
-            {/* Contenedor principal del carrusel con posición relativa */}
             <div className="relative w-full">
-                {/* Botones de navegación */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-200 border border-gray-200 z-20"
                     aria-label="Producto anterior"
                 >
                     <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
@@ -155,7 +168,7 @@ const ProductCarousel = () => {
                 
                 <button
                     onClick={nextSlide}
-                    className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-400 border border-gray-400 z-20"
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 sm:p-2 rounded-full text-gray-200 border border-gray-200 z-20"
                     aria-label="Siguiente producto"
                 >
                     <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2} />
@@ -192,23 +205,58 @@ const ProductCarousel = () => {
                                         className="px-2 sm:px-3 md:px-4" 
                                         style={{ width: `${100 / products.length}%` }}
                                     >
-                                        <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2 flex flex-col items-center
-                                            w-full max-w-full
-                                            h-64 sm:h-72 md:h-80 lg:h-96
-                                            hover:shadow-lg transition-shadow duration-300">
-                                            <div className="w-full h-44 sm:h-52 md:h-60 lg:h-72 relative">
-                                                <img 
-                                                    src={product.s3Url} 
-                                                    alt={product.name} 
-                                                    className="w-full h-full object-contain"
-                                                    draggable="false"
-                                                />
+                                        {isMobile ? (
+                                            <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 m-1
+                                                w-full max-w-full
+                                                h-auto min-h-64
+                                                hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                                                <div className="w-full h-36 flex items-center justify-center flex-shrink-0">
+                                                    <img 
+                                                        src={product.s3Url} 
+                                                        alt={product.name} 
+                                                        className="w-full h-full object-contain"
+                                                        draggable="false"
+                                                    />
+                                                </div>
+                                                
+
+                                                <div className="w-full h-1 bg-yellow-400 flex-shrink-0 my-1"></div>
+
+                                                <div className="w-full px-1 py-2 flex-grow flex flex-col justify-center items-center min-h-16">
+                                                    <div className="flex items-center h-full">
+                                                        <p className="text-sm tracking-wide text-center text-black font-poppins">
+                                                            {product.name}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="w-full h-1 bg-yellow-400 mt-2"></div>
-                                            <div className="p-1 sm:p-2 text-center flex flex-col flex-grow w-full">
-                                                <h3 className="text-sm md:text-lg font-medium tracking-wide text-black-800 truncate text-black">{product.name}</h3>
+                                        ) : (
+                                            <div className="bg-white border-2 border-gray-300 shadow-md rounded-lg overflow-hidden p-2 sm:p-3 m-1 sm:m-2
+                                                w-full max-w-full
+                                                h-auto min-h-72 sm:min-h-80 md:min-h-96 lg:min-h-112
+                                                hover:shadow-lg transition-shadow duration-300 flex flex-col">
+
+                                                <div className="w-full h-44 sm:h-48 md:h-56 lg:h-56 flex items-center justify-center flex-shrink-0">
+                                                    <img 
+                                                        src={product.s3Url} 
+                                                        alt={product.name} 
+                                                        className="w-full h-full object-contain"
+                                                        draggable="false"
+                                                    />
+                                                </div>
+                                                
+
+                                                <div className="w-full h-1 bg-yellow-400 flex-shrink-0 my-2"></div>
+                                                
+                                                <div className="w-full px-2 py-3 md:py-4 lg:py-4 flex-grow flex flex-col justify-center items-center min-h-20">
+                                                    <div className="flex items-center h-full">
+                                                        <p className="text-sm md:text-base lg:text-base  tracking-wide text-center text-gray-600 break-words font-poppins">
+                                                            {product.name}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
                                     </div>
                                 ))}
 

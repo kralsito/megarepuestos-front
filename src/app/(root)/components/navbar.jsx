@@ -68,6 +68,7 @@ const Navbar = () => {
           <button
             className="md:hidden text-white focus:outline-none absolute right-0 top-1/2 transform -translate-y-1/2"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Menu hamburguesa"
           >
             {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
           </button>
@@ -118,10 +119,12 @@ const Navbar = () => {
         className={`md:hidden fixed top-0 right-0 h-full bg-black w-64 pt-16 px-4 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } shadow-lg z-50`}
+        aria-label="Menu hamburguesa"
       >
         <button
           className="absolute top-4 right-4 text-white focus:outline-none"
           onClick={() => setIsOpen(false)}
+          aria-label="Menu hamburguesa"
         >
           <X className="w-6 h-6" />
         </button>
