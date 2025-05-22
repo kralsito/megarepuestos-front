@@ -102,9 +102,9 @@ const TableReplacements = () => {
                       index % 2 === 0 ? "bg-gray-100" : "bg-white"
                     } hover:bg-gray-200 transition-colors`}
                   >
-                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 font-medium break-words">{rep.name}</td>
-                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 truncate">{rep.typeReplacement?.name || 'N/A'}</td>
-                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 truncate">{rep.brand?.name || 'N/A'}</td>
+                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 font-medium break-words text-black">{rep.name}</td>
+                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 truncate text-black">{rep.typeReplacement?.name || 'N/A'}</td>
+                    <td className="px-1 sm:px-2 md:px-4 py-2 md:py-3 truncate text-black">{rep.brand?.name || 'N/A'}</td>
                   </tr>
                 ))
               ) : (

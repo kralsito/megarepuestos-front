@@ -97,7 +97,7 @@ const Table = () => {
                 className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-semibold">{prod.name}</h3>
+                  <h3 className="text-lg font-semibold text-black text-black">{prod.name}</h3>
                   <button 
                     className="text-red-500 hover:text-red-700 focus:outline-none"
                     onClick={() => handleDelete(prod)}
@@ -113,7 +113,7 @@ const Table = () => {
                     className="w-48 h-48 object-cover rounded-md"
                   />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 text-black">
                   <p><span className="font-medium">ID:</span> {prod.id}</p>
                   <p><span className="font-medium">Descripción:</span> {prod.description}</p>
                 </div>
@@ -135,10 +135,10 @@ const Table = () => {
             <tbody>
               {products.map((prod) => (
                 <tr key={prod.id} className="bg-white hover:bg-gray-100 border border-gray-300">
-                  <td className="px-4 py-2 border">{prod.id}</td>
-                  <td className="px-4 py-2 border">{prod.name}</td>
-                  <td className="px-4 py-2 border">{prod.description}</td>
-                  <td className="px-4 py-2 border">
+                  <td className="px-4 py-2 border text-black">{prod.id}</td>
+                  <td className="px-4 py-2 border text-black">{prod.name}</td>
+                  <td className="px-4 py-2 border text-black">{prod.description}</td>
+                  <td className="px-4 py-2 border text-black">
                     <img 
                       src={prod.s3Url} 
                       alt={prod.name} 

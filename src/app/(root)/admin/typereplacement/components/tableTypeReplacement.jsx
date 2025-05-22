@@ -83,7 +83,7 @@ const TableTypeReplacements = () => {
                 className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-semibold">{typ.id}</h3>
+                  <h3 className="text-lg font-semibold text-black">{typ.id}</h3>
                   <button 
                     className="text-red-500 hover:text-red-700 focus:outline-none"
                     onClick={() => handleDelete(typ)}
@@ -92,7 +92,7 @@ const TableTypeReplacements = () => {
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 text-black">
                   <p><span className="font-medium">Tipo de repuesto:</span> {typ.name}</p>
                 </div>
               </div>
@@ -111,8 +111,8 @@ const TableTypeReplacements = () => {
             <tbody>
               {typereplacements.map((typ) => (
                 <tr key={typ.id} className="bg-white hover:bg-gray-100 border border-gray-300">
-                  <td className="px-4 py-2 border">{typ.id}</td>
-                  <td className="px-4 py-2 border">{typ.name}</td>
+                  <td className="px-4 py-2 border text-black">{typ.id}</td>
+                  <td className="px-4 py-2 border text-black">{typ.name}</td>
                   <td className="px-4 py-2 border">
                     <button 
                       className="text-red-500 hover:text-red-700 focus:outline-none"

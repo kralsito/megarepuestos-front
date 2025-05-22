@@ -7,7 +7,8 @@ export async function apiRequest(endpoint, method = 'GET', body = null, contentT
     token = await getValidToken();
   }
 
-  const url = new URL(`http://localhost:8080${endpoint}`);
+  const baseURL = process.env.REACT_APP_BACKEND_URL;
+  const url = new URL(`${baseURL}${endpoint}`);
 
   const options = {
     method,

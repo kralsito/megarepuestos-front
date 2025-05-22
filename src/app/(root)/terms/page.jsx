@@ -7,7 +7,7 @@ const TermsAndConditions = () => {
     const router = useRouter();
 
     return (
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-6 bg-white text-black min-h-screen">
         <div className="flex justify-between items-center mb-6 md:mt-32">
           <button onClick={() => router.back()} className="text-black hover:underline flex items-center" style={{ fontFamily: "'oktah', sans-serif" }}>
             <ArrowLeft className="w-5 h-5 mr-1" /> INICIO
