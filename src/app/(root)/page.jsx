@@ -1,5 +1,3 @@
-import Head from "next/head"; 
-
 import ProductCarousel from "./components/productcarousel";
 import SectionACarousel from "./components/SectionACarousel";
 import SectionFooter from "./components/sectionFooter";
@@ -9,33 +7,63 @@ import SectionE from "./components/sectionE";
 import SectionF from "./components/sectionF";
 import SectionG from "./components/sectionG";
 
+
+export const metadata = {
+  title: "Mega Repuestos | Repuestos de Celulares en Berazategui",
+  description: "Venta de repuestos para celulares en Berazategui: pantallas, baterías, cargadores, flex y más. Mega Repuestos, tu solución en repuestos.",
+  keywords: "repuestos celulares Berazategui, pantallas de celulares, baterías de celulares, mega repuestos",
+  robots: "index, follow",
+  openGraph: {
+    title: "Mega Repuestos | Repuestos de Celulares en Berazategui",
+    description: "En Mega Repuestos tenemos todos los repuestos para tu celular en Berazategui. Calidad y buen precio garantizados.",
+    type: "website",
+    url: "https://repuestosmega.com.ar",
+    images: [
+      {
+        url: "/images/megarepuestos.png",
+        width: 800,
+        height: 600,
+        alt: "Mega Repuestos",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mega Repuestos | Repuestos de Celulares en Berazategui",
+    description: "En Mega Repuestos tenemos todos los repuestos para tu celular en Berazategui.",
+    images: ["/images/megarepuestos.png"],
+  },
+  alternates: {
+    canonical: "https://repuestosmega.com.ar",
+  },
+};
+
 export default function Home() {
-    return (
-        <>
-            <Head>
-            <title>Mega Repuestos | Repuestos de Celulares en Berazategui</title>
-            <meta name="description" content="Venta de repuestos para celulares en Berazategui: pantallas, baterías, cargadores, flex y más. Mega Repuestos, tu solución en repuestos." />
-            <meta name="keywords" content="repuestos celulares Berazategui, pantallas de celulares, baterías de celulares, mega repuestos" />
-            <meta name="robots" content="index, follow" />
-            
-            <meta property="og:title" content="Mega Repuestos | Repuestos de Celulares en Berazategui" />
-            <meta property="og:description" content="En Mega Repuestos tenemos todos los repuestos para tu celular en Berazategui. Calidad y buen precio garantizados." />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://tusitio.com" />
-            <meta property="og:image" content="https://tusitio.com/imagen-previa.jpg" />
+  return (
+    <>
+      {/* H1 y contenido oculto para SEO - NO se ve en pantalla */}
+      <div className="sr-only">
+        <h1>Mega Repuestos - Repuestos de Celulares en Berazategui</h1>
+        <p>Pantallas • Baterías • Pines de carga • Flex y más</p>
+        <p>Venta de repuestos para celulares: pantallas, baterías, pines de carga, flex y más. Tu solución en repuestos.</p>
+      </div>
 
-            <link rel="icon" href="/favicon.ico" />
-            </Head>
+      {/* Contenido principal */}
+      <main>
+        <SectionACarousel />
+        <SectionC />
+        <ProductCarousel />
+        <SectionB />
+        <SectionG />
+        <SectionF />
+        <SectionC />
+        <SectionE />
+      </main>
 
-            <SectionACarousel />
-            <SectionC />
-            <ProductCarousel />
-            <SectionB />
-            <SectionG />
-            <SectionF />
-            <SectionC />
-            <SectionE />
-            <SectionFooter />
-        </>
-    );
+      {/* Footer */}
+      <footer>
+        <SectionFooter />
+      </footer>
+    </>
+  );
 }

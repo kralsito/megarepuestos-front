@@ -9,7 +9,7 @@ const items = [
 
 const SectionG = () => {
     return (
-        <div className="container mx-auto px-4 pt-8 pb-20">
+        <div className="container mx-auto px-4 pt-8 pb-20 bg-white">
             <h1
                 className="text-2xl md:text-3xl text-center mb-20 tracking-wider text-black md:mt-8"
                 style={{ fontFamily: "'oktah', sans-serif" }}
@@ -18,7 +18,7 @@ const SectionG = () => {
             </h1>
             <div className="grid grid-cols-3 gap-y-12 gap-x-8 justify-items-center">
                 {items.map((item, index) => (
-                    <div key={index} className="flex flex-col items-center text-center">
+                    <div key={index} className="flex flex-col items-center text-center text-black">
                         <img
                             src={item.image}
                             alt={item.title}
