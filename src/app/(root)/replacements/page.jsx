@@ -1,7 +1,7 @@
 import TableReplacements from './components/tablereplacements';
 import SectionAReplacementsList from './components/sectionAReplacementslist';
-import SectionFooter from '../components/sectionFooter';
-import SectionH from '../components/SectionH';
+import SectionFooter from '../../components/sectionFooter';
+import SectionH from '../../components/SectionH';
 
 export const metadata = {
   title: "Repuestos y Reemplazos | Mega Repuestos",

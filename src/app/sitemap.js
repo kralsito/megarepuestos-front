@@ -1,14 +1,16 @@
 
 export default function sitemap() {
+  const baseUrl = 'https://repuestosmega.com.ar';
+  
   return [
     {
-      url: 'https://repuestosmega.com.ar',
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: 'https://repuestosmega.com.ar/replacements',
+      url: `${baseUrl}/replacements`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
