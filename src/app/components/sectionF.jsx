@@ -112,7 +112,7 @@ export default function SectionF() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-auto py-10 px-4 bg-black text-white text-center">
       <p 
-        className="text-2xl md:text-4xl mt-8 max-w-2xl" 
+        className="text-2xl md:text-4xl mt-32 max-w-2xl" 
         style={{ fontFamily: "'oktah', sans-serif" }}
       >
         Completa el formulario para acceder a nuestra lista de precios
