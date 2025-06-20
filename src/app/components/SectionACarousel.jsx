@@ -16,7 +16,11 @@ const images = [
     {
         src: "/images/fondo2.png",
         alt: "Repuestos celulares todas las marcas Berazategui - Entrega inmediata"
-    }
+    },
+        {
+        src: "/images/fondo4.png",
+        alt: "Próximamente nuevo local en Quilmes centro"
+    },
 ];
 
 const SectionACarousel = () => {
