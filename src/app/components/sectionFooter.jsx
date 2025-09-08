@@ -22,13 +22,24 @@ const SectionFooter = () => {
                                 Calle 150 N°1485, Berazategui
                             </a>
                         </div>
+                                                <div className="flex items-center space-x-3">
+                            <MapPin className="w-6 h-6 text-black" />
+                            <a
+                                href="https://maps.app.goo.gl/dxpDh7KeeJf5ChNP6"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary-yellow transition"
+                            >
+                                Rivadavia 309 - Local 5, Quilmes
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <div className="mt-6 md:mt-0 w-full md:w-auto">
                     <h2 className="text-2xl mb-4" style={{ fontFamily: "'oktah', sans-serif" }}>Sigamos conectados</h2>
                     <div className="flex space-x-6">
-                        <a href="https://www.instagram.com/megacelularesberazategui/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Megacelulares">
+                        <a href="https://www.instagram.com/megarepuestosquilmes/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Megacelulares">
                             <Instagram className="w-8 h-8 text-black hover:text-primary-yellow transition" />
                         </a>
                         <a href="https://www.facebook.com/megacelularesberazategui" target="_blank" rel="noopener noreferrer" aria-label="Facebook Megacelulares">

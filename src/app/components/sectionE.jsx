@@ -14,7 +14,7 @@ const SectionE = () => {
           </h2>
           <p className="text-white text-xl mb-6" style={{ fontFamily: "'oktah', sans-serif" }}>
             En Megarepuestos, nos especializamos en la provisión de repuestos para celulares de todas las marcas y modelos. 
-            Ubicados en Berazategui, trabajamos con un amplio catálogo de piezas de alta calidad para garantizar soluciones eficientes a nuestros clientes.
+            Ubicados en Berazategui y Quilmes, trabajamos con un amplio catálogo de piezas de alta calidad para garantizar soluciones eficientes a nuestros clientes.
           </p>
           <p className="text-white text-xl mb-6 hidden sm:block" style={{ fontFamily: "'oktah', sans-serif" }}>
             Nuestro compromiso es ofrecer productos confiables y un servicio excepcional, ayudando a técnicos y comercios a mantener sus dispositivos en óptimas condiciones. 

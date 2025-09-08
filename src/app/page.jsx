@@ -9,12 +9,12 @@ import SectionG from "./components/sectionG";
 import VisualSeparator from "./components/separator";
 
 export const metadata = {
-  title: "Repuestos para Celulares en Berazategui | Mega Repuestos",
-  description: "✅ Repuestos para celulares en Berazategui: pantallas, baterías, flex, pines de carga. ⚡ Entrega inmediata ⚡ Mejores precios zona sur. ¡Visitanos!",
-  keywords: "repuestos para celulares, repuestos celular berazategui, pantallas celular, baterias celular, repuestos samsung, repuestos iphone, zona sur",
+  title: "Repuestos para Celulares en Zona Sur | Mega Repuestos",
+  description: "✅ Repuestos para celulares en Berazategui y Quilmes: pantallas, baterías, flex, pines de carga. ⚡ Entrega inmediata ⚡ Mejores precios zona sur. ¡Visitanos!",
+  keywords: "repuestos para celulares, repuestos celular berazategui, repuestos celular quilmes, pantallas celular, baterias celular, repuestos samsung, repuestos iphone, zona sur, repuestos, celular",
   robots: "index, follow",
   openGraph: {
-    title: "🔧 Repuestos para Celulares en Berazategui | Stock Completo",
+    title: "🔧 Repuestos para Celulares en Berazategui y Quilmes | Stock Completo",
     description: "✅ Todos los repuestos para tu celular: pantallas, baterías, flex, cargadores. ⚡ Stock permanente ⚡ Zona sur GBA. ¡Consultá ahora!",
     type: "website",
     url: "https://repuestosmega.com.ar",
@@ -23,7 +23,7 @@ export const metadata = {
         url: "/images/megarepuestos.png",
         width: 1200,
         height: 630,
-        alt: "Mega Repuestos - Repuestos para celulares en Berazategui",
+        alt: "Mega Repuestos - Repuestos para celulares en Berazategui y Quilmes",
       },
     ],
   },
@@ -43,7 +43,7 @@ export default function Home() {
     <>
       {/* Header principal con contenido mínimo pero visible */}
       <header className="absolute top-0 left-0 w-1 h-1 overflow-hidden opacity-0 pointer-events-none">
-        <h1>Repuestos Para Celulares en Berazategui - Mega Repuestos</h1>
+        <h1>Repuestos Para Celulares - Mega Repuestos</h1>
         <p>Stock completo de repuestos para celulares: pantallas, baterías, flex de carga, cámaras. Atendemos en zona sur GBA con garantía y entrega inmediata. Samsung, iPhone, Motorola, Xiaomi.</p>
       </header>
 
@@ -144,7 +144,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-2xl font-bold mb-4 text-white">Zona sur GBA</h3>
                   <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                    Atendemos en <strong>Berazategui</strong> con entrega inmediata 
+                    Atendemos en <strong>Berazategui</strong> y <strong>Quilmes</strong> con entrega inmediata 
                     y los mejores precios de la zona.
                   </p>
                   <div className="bg-primary-yellow/10 backdrop-blur-sm rounded-lg p-3 border border-primary-yellow/20">
@@ -200,7 +200,7 @@ export default function Home() {
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary-yellow to-primary-yellow/80 mx-auto mb-6 rounded-full"></div>
               <p className="text-lg md:text-xl text-white max-w-3xl mx-auto leading-relaxed">
-                En <strong className="text-primary-yellow">Mega Repuestos Berazategui</strong> ofrecemos repuestos para celulares con garantía, stock permanente y atención personalizada para técnicos.
+                En <strong className="text-primary-yellow">Mega Repuestos</strong> ofrecemos repuestos para celulares con garantía, stock permanente y atención personalizada para técnicos.
               </p>
             </div>
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
