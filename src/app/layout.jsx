@@ -76,7 +76,14 @@ export default function RootLayout({ children }) {
       >
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-grow pt-[calc(4rem+48px)] md:pt-[calc(5rem+64px)] lg:pt-[calc(6rem+72px)]">
+          <main className="
+            flex-grow
+            bg-black
+            pt-[calc(4rem+48px)]
+            md:pt-[calc(5rem+64px)]
+            lg:pt-[calc(6rem+72px)]
+            "
+          >
             {children}
           </main>
           <WhatsAppButton />

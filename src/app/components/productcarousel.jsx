@@ -25,7 +25,7 @@ const ProductCarousel = () => {
         setIsMobile(width < 640);
         
         if (width < 640) {
-            setCardsToShow(2);
+            setCardsToShow(1); // 1 card en móvil para que se vea más ancha
         } else if (width < 768) {
             setCardsToShow(2);
         } else if (width < 1024) {
@@ -213,13 +213,20 @@ const ProductCarousel = () => {
                                         onMouseLeave={() => setHoveredCard(null)}
                                     >
                                         {isMobile ? (
-                                            // Mobile Card
-                                            <div className="group relative bg-white border-2 border-gray-200 hover:border-yellow-400 shadow-md hover:shadow-xl hover:shadow-yellow-400/20 rounded-2xl overflow-hidden p-3 m-1 transition-all duration-300 flex flex-col h-full">
+                                            // Mobile Card - Mejorada para verse más ancha y atractiva
+                                            <div className="group relative bg-white border-2 border-gray-200 hover:border-yellow-400 shadow-lg hover:shadow-xl hover:shadow-yellow-400/20 rounded-3xl overflow-hidden p-5 m-1 transition-all duration-300 flex flex-col h-full">
                                                 {/* Gradient overlay on hover */}
                                                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                                 
-                                                {/* Image container */}
-                                                <div className="relative w-full h-36 flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-gray-50 to-white rounded-xl p-2 mb-3 overflow-hidden">
+                                                {/* "Nuevo" badge para móvil también */}
+                                                {index < 3 && (
+                                                    <div className="absolute top-3 left-3 z-10 px-3 py-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black text-xs font-bold rounded-full shadow-lg">
+                                                        NUEVO
+                                                    </div>
+                                                )}
+
+                                                {/* Image container - más grande */}
+                                                <div className="relative w-full h-56 flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 mb-4 overflow-hidden">
                                                     <img 
                                                         src={product.s3Url} 
                                                         alt={product.name} 
@@ -228,18 +235,21 @@ const ProductCarousel = () => {
                                                     />
                                                     
                                                     {/* Corner accent */}
-                                                    <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-bl-2xl"></div>
+                                                    <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-transparent rounded-bl-3xl"></div>
                                                 </div>
 
                                                 {/* Divider */}
-                                                <div className="w-full h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex-shrink-0 mb-3"></div>
+                                                <div className="w-full h-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 rounded-full flex-shrink-0 mb-4"></div>
 
-                                                {/* Product name */}
-                                                <div className="relative w-full px-1 py-2 flex-grow flex flex-col justify-center items-center">
-                                                    <p className="text-sm font-semibold tracking-wide text-center text-gray-700 group-hover:text-gray-900 transition-colors" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                                                {/* Product name - más grande y con mejor espaciado */}
+                                                <div className="relative w-full px-2 py-3 flex-grow flex flex-col justify-center items-center">
+                                                    <p className="text-base font-bold tracking-wide text-center text-gray-700 group-hover:text-gray-900 transition-colors leading-snug" style={{ fontFamily: "'Poppins', sans-serif" }}>
                                                         {product.name}
                                                     </p>
                                                 </div>
+
+                                                {/* Animated bottom line */}
+                                                <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full transition-all duration-300 w-0 group-hover:w-full"></div>
                                             </div>
                                         ) : (
                                             // Desktop Card

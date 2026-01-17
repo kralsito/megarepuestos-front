@@ -125,7 +125,7 @@ export default function Home() {
       </header>
 
       {/* Contenido principal con estructura semántica */}
-      <main>
+      <main className="bg-white">
         {/* Sección hero */}
         <article>
           <SectionACarousel />
