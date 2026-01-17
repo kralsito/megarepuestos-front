@@ -101,8 +101,8 @@ const SectionE = () => {
               {/* Stats or badges */}
               <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-white/10">
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-yellow-400 mb-1">+5</div>
-                  <div className="text-xs md:text-sm text-white/70">Años</div>
+                  <div className="text-2xl md:text-3xl font-bold text-yellow-400 mb-1">+1</div>
+                  <div className="text-xs md:text-sm text-white/70">Año</div>
                 </div>
                 <div className="text-center border-x border-white/10">
                   <div className="text-2xl md:text-3xl font-bold text-yellow-400 mb-1">2</div>

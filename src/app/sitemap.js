@@ -1,19 +1,27 @@
-
 export default function sitemap() {
   const baseUrl = 'https://repuestosmega.com.ar';
+  const currentDate = new Date();
   
   return [
+    // Página principal - Máxima prioridad
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'daily',
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/replacements`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    
   ]
 }

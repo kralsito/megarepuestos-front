@@ -58,7 +58,7 @@ const SectionI = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto mb-8 rounded-full"></div>
           
           <p className="text-lg sm:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: "'oktah', sans-serif" }}>
-            <span className="text-yellow-400 font-bold">Mega Repuestos</span> es tu tienda especializada en repuestos para celulares en Berazategui. 
+            <span className="text-yellow-400 font-bold">Mega Repuestos</span> es tu tienda especializada en repuestos para celulares en Berazategui y Quilmes. 
             Contamos con el <span className="text-yellow-400 font-semibold">stock más completo</span> de repuestos 
             para celulares en zona sur del Gran Buenos Aires.
           </p>

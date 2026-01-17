@@ -201,8 +201,8 @@ const SectionFooter = () => {
                                 </div>
                                 <div>
                                     <h3 className="text-white font-semibold mb-2">Horarios de atención</h3>
-                                    <p className="text-white/70 text-sm">Lunes a Viernes: 9:00 - 18:00</p>
-                                    <p className="text-white/70 text-sm">Sábados: 9:00 - 13:00</p>
+                                    <p className="text-white/70 text-sm">Lunes a Viernes: 10:00 hs - 20:00 hs</p>
+                                    <p className="text-white/70 text-sm">Sábados: 10:00 hs - 19:00hs</p>
                                 </div>
                             </div>
                         </div>
