@@ -15,24 +15,24 @@ const SectionG = () => {
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
     return (
-        <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
+        <div className="relative overflow-hidden bg-white">
             {/* Animated background elements */}
-            <div className="absolute inset-0 opacity-30">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-                <div className="absolute top-40 right-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-                <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+            <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+                <div className="absolute top-40 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+                <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
             </div>
 
             <div className="container mx-auto px-4 pt-16 pb-24 relative z-10">
                 {/* Title with modern styling */}
                 <div className="text-center mb-20">
                     <h1 
-                        className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 mb-4 animate-fade-in"
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 mb-4 animate-fade-in"
                         style={{ fontFamily: "'oktah', sans-serif" }}
                     >
                         TIPOS DE PRODUCTOS
                     </h1>
-                    <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full animate-slide-in"></div>
+                    <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full animate-slide-in"></div>
                 </div>
 
                 {/* Grid with modern cards */}
@@ -48,7 +48,7 @@ const SectionG = () => {
                             }}
                         >
                             {/* Card container */}
-                            <div className="relative h-full bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 overflow-hidden">
+                            <div className="relative h-full bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden">
                                 {/* Gradient overlay on hover */}
                                 <div className={`absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-3xl transition-opacity duration-500 ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}></div>
                                 
@@ -77,7 +77,7 @@ const SectionG = () => {
 
                                     {/* Title */}
                                     <h3
-                                        className="text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent transition-all duration-300"
+                                        className="text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-700 bg-clip-text text-transparent transition-all duration-300"
                                         style={{ fontFamily: "'oktah', sans-serif" }}
                                     >
                                         {item.title}
