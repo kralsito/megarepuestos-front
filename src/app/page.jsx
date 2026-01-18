@@ -88,7 +88,7 @@ export const metadata = {
   },
   
   verification: {
-    google: "tu-codigo-de-verificacion-aqui", // Agregar tu código de Google Search Console
+    google: "2klZQuMTPIQ80KfyfUTBBgocqLkrqRaw5cBaH9PXciw",
   },
   
   other: {
@@ -274,36 +274,6 @@ export default function Home() {
                     "@type": "City",
                     "name": "La Plata"
                   }
-                ],
-                "makesOffer": [
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "Pantallas para celulares"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "Baterías para celulares"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "Flex de carga"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "Cámaras para celulares"
-                    }
-                  }
                 ]
               },
               {
@@ -440,71 +410,6 @@ export default function Home() {
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "Sí, somos proveedores de repuestos para técnicos de celulares en toda zona sur. Ofrecemos precios especiales por cantidad, descuentos para técnicos registrados y asesoramiento técnico. Tenés stock permanente para que nunca te falte material de trabajo."
-                }
-              }
-            ]
-          })
-        }}
-      />
-
-      {/* Product Schema para repuestos destacados */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "itemListElement": [
-              {
-                "@type": "Product",
-                "position": 1,
-                "name": "Pantallas para celulares Samsung",
-                "description": "Pantallas LCD y OLED para todos los modelos Samsung. Originales y compatibles con garantía.",
-                "brand": {
-                  "@type": "Brand",
-                  "name": "Samsung"
-                },
-                "offers": {
-                  "@type": "AggregateOffer",
-                  "availability": "https://schema.org/InStock",
-                  "priceCurrency": "ARS"
-                }
-              },
-              {
-                "@type": "Product",
-                "position": 2,
-                "name": "Pantallas para iPhone",
-                "description": "Pantallas originales y soft OLED para iPhone. Modelos desde iPhone 6 hasta iPhone 15.",
-                "brand": {
-                  "@type": "Brand",
-                  "name": "Apple"
-                },
-                "offers": {
-                  "@type": "AggregateOffer",
-                  "availability": "https://schema.org/InStock",
-                  "priceCurrency": "ARS"
-                }
-              },
-              {
-                "@type": "Product",
-                "position": 3,
-                "name": "Baterías para celulares",
-                "description": "Baterías originales y compatibles para todas las marcas. Samsung, iPhone, Motorola, Xiaomi.",
-                "offers": {
-                  "@type": "AggregateOffer",
-                  "availability": "https://schema.org/InStock",
-                  "priceCurrency": "ARS"
-                }
-              },
-              {
-                "@type": "Product",
-                "position": 4,
-                "name": "Flex de carga para celulares",
-                "description": "Flex de carga, conectores y pines de carga para todos los modelos de celulares.",
-                "offers": {
-                  "@type": "AggregateOffer",
-                  "availability": "https://schema.org/InStock",
-                  "priceCurrency": "ARS"
                 }
               }
             ]
